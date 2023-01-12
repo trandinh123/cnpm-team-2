@@ -1,4 +1,4 @@
-# Xây dựng bản mô phỏng ứng dụng zalo - TLU
+# Xây dựng bản mô phỏng ứng dụng Zalo
 
 Bài tập lớn môn công nghệ phần mềm K2N2 năm 2022
 
