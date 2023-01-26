@@ -1,8 +1,7 @@
 import React from "react";
 import Layout from "../../components/Layout/Layout";
-import MessageNavigation from "../../components/MessageNavigation/MessageNavigation";
 
-export default function Home() {
+export default function Account() {
   return (
     <Layout>
       <button
@@ -23,6 +22,7 @@ export default function Home() {
       >
         Logout
       </button>
+      <div>List Friend</div>
     </Layout>
   );
 }

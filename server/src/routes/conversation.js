@@ -1,6 +1,5 @@
 const express = require("express");
 const passport = require("passport");
-const { verifyAuthorization } = require("../middlwares/auth");
 const router = express.Router();
 const conversationController = require("../controllers/Conversation");
 

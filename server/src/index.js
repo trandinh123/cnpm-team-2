@@ -19,10 +19,18 @@ app.use(express.json());
 app.use(
   cors({
     origin: "http://localhost:3000",
+    credentials: true,
   })
 );
 
-app.use(session({ secret: "abc123", resave: false, saveUninitialized: true }));
+app.use(
+  session({
+    secret: "abc123",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { path: "/", httpOnly: true, maxAge: 36000000 },
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -49,5 +57,5 @@ mongoose.connect(process.env.MONGODB_URI, (err) => {
 });
 
 const io = new Server(server, {
-  cors: "http://localhost:3000",
+  cors: "http://localhost:5000",
 });

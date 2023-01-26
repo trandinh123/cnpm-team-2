@@ -4,7 +4,7 @@ const { verifyAuthorization } = require("../middlwares/auth");
 const router = express.Router();
 const userController = require("../controllers/user");
 
-router.get("/:id", verifyAuthorization, userController.get);
-router.put("/:id", verifyAuthorization, userController.update);
+router.get("/:id", userController.get);
+router.put("/:id", userController.update);
 
 module.exports = router;
