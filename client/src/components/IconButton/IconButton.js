@@ -1,21 +1,13 @@
 import React from "react";
 
-export default function IconButton({
-  color = "white",
-  size = "30px",
-  icon,
-  customStyle,
-  customClass = "",
-}) {
+export default function IconButton({ icon, customClass = "" }) {
   return (
     <div
       style={{
         cursor: "pointer",
-        color: `${color}`,
-        fontSize: `${size}`,
-        ...customStyle,
+        padding: 0,
       }}
-      className={`${customClass} p-1 d-flex justify-content-center align-items-center`}
+      className={`${customClass} d-flex justify-content-center align-items-center`}
     >
       {icon}
     </div>

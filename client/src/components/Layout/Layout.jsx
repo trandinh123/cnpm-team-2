@@ -19,7 +19,9 @@ import {
 } from "react-icons/ai";
 import { RiContactsBookLine, RiChat3Line } from "react-icons/ri";
 import { TfiCheckBox } from "react-icons/tfi";
+import { IconContext } from "react-icons";
 import IconButton from "../IconButton/IconButton";
+import Image from "react-bootstrap/Image";
 
 export default function Layout({ navigationContent, children }) {
   return (
@@ -28,31 +30,32 @@ export default function Layout({ navigationContent, children }) {
         className="d-flex space-between flex-column justify-content-between py-4"
         style={{ minWidth: "40px" }}
       >
-        <Container fluid>
-          <Row className="mt-4">
-            <IconButton
-              icon={<RiContactsBookLine />}
-              customStyle={{ padding: 0 }}
+        <IconContext.Provider value={{ size: 30, color: "white" }}>
+          <Container
+            fluid
+            className="d-flex flex-column"
+            style={{ rowGap: "32px" }}
+          >
+            <Image
+              roundedCircle
+              fluid
+              src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+              style={{ cursor: "pointer", width: "48px", height: "48px" }}
             />
-          </Row>
-          <Row className="mt-4">
-            <IconButton icon={<RiChat3Line />} customStyle={{ padding: 0 }} />
-          </Row>
-          <Row className="mt-4">
-            <IconButton icon={<TfiCheckBox />} customStyle={{ padding: 0 }} />
-          </Row>
-        </Container>
-        <Container fluid>
-          <Row className="mt-4">
-            <IconButton icon={<AiFillCloud />} customStyle={{ padding: 0 }} />
-          </Row>
-          <Row className="mt-4">
-            <IconButton icon={<FaBriefcase />} customStyle={{ padding: 0 }} />
-          </Row>
-          <Row className="mt-4">
-            <IconButton icon={<AiFillSetting />} customStyle={{ padding: 0 }} />
-          </Row>
-        </Container>
+            <IconButton icon={<RiContactsBookLine />} />
+            <IconButton icon={<RiChat3Line />} />
+            <IconButton icon={<TfiCheckBox />} />
+          </Container>
+          <Container
+            fluid
+            className="d-flex flex-column"
+            style={{ rowGap: "32px" }}
+          >
+            <IconButton icon={<AiFillCloud />} />
+            <IconButton icon={<FaBriefcase />} />
+            <IconButton icon={<AiFillSetting />} />
+          </Container>
+        </IconContext.Provider>
       </PageNavigation>
       <ContactNavigation style={{ minWidth: "200px" }}>
         <Container fluid className="mt-4 mx-0 px-0">
@@ -71,17 +74,12 @@ export default function Layout({ navigationContent, children }) {
             <Col
               xs={3}
               className="d-flex align-items-center justify-content-center px-0"
+              style={{ columnGap: "20px" }}
             >
-              <IconButton
-                color="black"
-                icon={<AiOutlineUserAdd />}
-                size="18px"
-              />
-              <IconButton
-                color="black"
-                icon={<AiOutlineUsergroupAdd />}
-                size="18px"
-              />
+              <IconContext.Provider value={{ size: 30, color: "white" }}>
+                <IconButton icon={<AiOutlineUserAdd />} />
+                <IconButton icon={<AiOutlineUsergroupAdd />} />
+              </IconContext.Provider>
             </Col>
           </Row>
         </Container>
