@@ -8,9 +8,9 @@ import { useEffect, useState } from "react";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 function App() {
-  const [user, setUser] = useState();
+  const [userAuth, setUserAuth] = useState();
   const [loading, setLoading] = useState(true);
-  const getUser = async () => {
+  const getUserAuth = async () => {
     const user = await fetch("http://localhost:5000/auth/user", {
       method: "GET",
       credentials: "include",
@@ -25,12 +25,12 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-    setUser(user);
+    setUserAuth(user);
     setLoading(false);
   };
 
   useEffect(() => {
-    getUser();
+    getUserAuth();
   }, []);
 
   if (loading) {
@@ -41,11 +41,13 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/account" exact element={<Account user={user} />} />
+          <Route path="/account" exact element={<Account />} />
           <Route
             path="/"
             exact
-            element={<ProtectedRoute isAllowed={!!user} component={<Home />} />}
+            element={
+              <ProtectedRoute isAllowed={!!userAuth} component={<Home />} />
+            }
           />
         </Routes>
       </Router>
