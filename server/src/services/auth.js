@@ -35,6 +35,6 @@ passport.serializeUser(function (user, done) {
 });
 
 passport.deserializeUser(async function (userId, done) {
-  const user = await User.findById(userId);
+  const user = await User.findById(userId).populate("friends", "name");
   done(null, user);
 });

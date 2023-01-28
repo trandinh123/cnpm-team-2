@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../../components/Layout/Layout";
 
-export default function Account() {
+export default function Account({ user }) {
   return (
     <Layout>
       <button
@@ -23,6 +23,7 @@ export default function Account() {
         Logout
       </button>
       <div>List Friend</div>
+      <ul>{user && user.friends.map((friend) => <li>{friend.name}</li>)}</ul>
     </Layout>
   );
 }

@@ -41,7 +41,7 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/account" exact element={<Account />} />
+          <Route path="/account" exact element={<Account user={user} />} />
           <Route
             path="/"
             exact
