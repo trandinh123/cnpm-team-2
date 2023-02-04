@@ -1,0 +1,153 @@
+.updateInfContainer{
+    // visibility: hidden;
+    z-index: 1000;
+    color: var(--text-primary);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: var(--BA50);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .headAccInf{
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 16px 4px 16px;
+
+        h4,i{
+            font-size: 16px;
+            color: var(--text-primary);
+            font-weight: 600;
+            line-height: 1.5;
+        }
+    }
+    .updateModal{
+        border-radius: 4px;
+        width: 400px;
+        height: 635px;
+        background-color: #fff;
+        .coverPhotoUpdate{
+            height: 155px;
+            width: 100%;
+        }
+        .imageAcc{
+            position: relative;
+        }
+        .avatarUpdate{
+            width: 83.2px;
+            height: 83.2px;
+            position: relative;
+            transform: translateX(-50%);
+            left: 50%;
+            bottom: 41.6px;
+            border-radius: 100px;
+            border: 2px solid #fff;
+            margin-bottom: -41px;
+        }
+        .camera{
+            position: absolute;
+            top: 36%;
+            left: 55%;
+            color: #9ca5aea4;
+            border-radius: 100px;
+            border: 1px solid #9ca5ae66;
+            padding: 4px;
+            font-size: 13px;
+            background-color: #fff;
+        }
+
+        .nameUpdate{
+            padding: 8px 16px;
+            #nameInput{
+                width: 100%;
+                padding: 6px 12px;
+                border-radius: 4px;
+                border: 0.5px solid var(--border-update);
+                outline: none;
+                margin-top: 6px;
+            }
+            small{
+                font-size: 12px;
+                color: var(--text-secondary);
+                font-weight: 400;
+            }
+            
+        }
+        hr{
+            border: 4px solid var(--surface-background-subtle);
+            margin: 5px 0;
+        }
+        .text{
+            margin: 0;
+            font-size: 14px;
+        }
+        input[type="radio"]{
+            transform: scale(1.5);
+            margin: 12px 10px 16px 5px;
+        }
+
+        .inforUser{
+            padding: 0 16px;
+            .title{
+                margin: 14px 0px;
+                font-weight: 600;
+            }
+        }
+
+        .infUpdate{
+            #female{
+                margin-left: 50px;
+            }
+            
+            .dateUpdate{
+                display: flex;
+                justify-content: space-between;
+                height: 40px;
+                margin-top: 8px;
+                margin-bottom: 40px;
+                #day, #month, #year{
+                    padding: 0 10px;
+                    background-color: transparent;
+                    border: 0.5px solid var(--border-update);
+                    border-radius: 4px;
+
+                }
+                #day{
+                    flex-grow: 1;
+                }
+                #month{
+                    flex-grow: 1;
+                    margin: 0 6px;
+                }
+                #year{
+                    flex-grow: 1.5;
+                }
+                
+
+            }
+
+            .cancelbtn, input[type="submit"]{
+                padding: 8px 16px;
+                float: right;
+                margin-bottom: 16px;
+                border-radius: 4px;
+                border: none;
+                margin-left: 16px;
+                font-size: 16px;
+                font-weight: 600;
+            }
+
+            input[type="submit"]{
+                background-color: var(--button-primary-disabled);
+                color: var(--button-primary-text-disabled);
+            }
+            .cancelbtn:hover{
+                background-color: var(--button-neutral-hover);
+            }
+
+        }
+
+    }
+}

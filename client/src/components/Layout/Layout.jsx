@@ -20,10 +20,21 @@ import {
 import { RiContactsBookLine, RiChat3Line } from "react-icons/ri";
 import { TfiCheckBox } from "react-icons/tfi";
 import { IconContext } from "react-icons";
-import IconButton from "../IconButton/IconButton";
 import Image from "react-bootstrap/Image";
+import IconButton from "../IconButton/IconButton";
+import SettingModal from "../SettingModal/SettingModal";
+import AccountInfor from "../AccountInfor/AccountInfor";
+import { useState } from "react";
+import CallScreen from "../CallScreen/CallScreen";
 
 export default function Layout({ navigationContent, children }) {
+  const [settingModalOpen, setSettingModalOpen] = useState(false);
+  const [open, setOpen] = useState(0);
+  const [accInfOpen, setAccInfOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(1);
+    setSettingModalOpen(!settingModalOpen);
+  };
   return (
     <LayoutContainer>
       <PageNavigation
@@ -53,7 +64,15 @@ export default function Layout({ navigationContent, children }) {
           >
             <IconButton icon={<AiFillCloud />} />
             <IconButton icon={<FaBriefcase />} />
-            <IconButton icon={<AiFillSetting />} />
+            <IconButton
+              icon={<AiFillSetting onClick={handleOpen} />}
+              customStyle={{ padding: 0 }}
+            />
+            <SettingModal
+              settingModalOpen={settingModalOpen}
+              setSettingModalOpen={setSettingModalOpen}
+              setAccInfOpen={setAccInfOpen}
+            />
           </Container>
         </IconContext.Provider>
       </PageNavigation>
@@ -86,6 +105,7 @@ export default function Layout({ navigationContent, children }) {
         <Container className="mt-4">{navigationContent}</Container>
       </ContactNavigation>
       <MainContent>{children}</MainContent>
+      <AccountInfor accInfOpen={accInfOpen} setAccInfOpen={setAccInfOpen} />
     </LayoutContainer>
   );
 }

@@ -45,7 +45,7 @@ app.get("/", verifyAuthenticated, (req, res) => {
   });
 });
 
-server.listen(process.env.PORT, "192.168.1.19", () => {
+server.listen(process.env.PORT, () => {
   console.log("listening on:", process.env.PORT);
 });
 
