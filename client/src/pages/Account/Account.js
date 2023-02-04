@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import useFetchApi from "../../hooks/useFetchApi";
+import { SERVER_URL, CLIENT_URL } from "../../config";
 
 export default function Account() {
   const {
@@ -10,7 +11,7 @@ export default function Account() {
     setLoading,
     refetch,
   } = useFetchApi({
-    initialUrl: "http://localhost:5000/user",
+    initialUrl: `${SERVER_URL}/user`,
   });
   const [email, setEmail] = useState("");
   if (!fetched) {
@@ -22,7 +23,7 @@ export default function Account() {
       <button
         onClick={() => {
           window.open(
-            "http://localhost:5000/auth/google?returnTo=http://localhost:3000/account",
+            `${SERVER_URL}/auth/google?returnTo=${CLIENT_URL}/account`,
             "_self"
           );
         }}
@@ -31,7 +32,7 @@ export default function Account() {
       </button>
       <button
         onClick={async () => {
-          await fetch("http://localhost:5000/auth/google/logout", {
+          await fetch(`${SERVER_URL}/auth/google/logout`, {
             method: "GET",
             credentials: "include",
           });
@@ -54,13 +55,10 @@ export default function Account() {
                 <button
                   onClick={async () => {
                     setLoading(true);
-                    await fetch(
-                      `http://localhost:5000/user/unfriend/${friend._id}`,
-                      {
-                        method: "GET",
-                        credentials: "include",
-                      }
-                    );
+                    await fetch(`${SERVER_URL}/user/unfriend/${friend._id}`, {
+                      method: "GET",
+                      credentials: "include",
+                    });
                     await refetch();
                   }}
                 >
@@ -80,7 +78,7 @@ export default function Account() {
                   onClick={async () => {
                     setLoading(true);
                     await fetch(
-                      `http://localhost:5000/user/acceptfriend/${friend._id}`,
+                      `${SERVER_URL}/user/acceptfriend/${friend._id}`,
                       {
                         method: "GET",
                         credentials: "include",
@@ -95,7 +93,7 @@ export default function Account() {
                   onClick={async () => {
                     setLoading(true);
                     await fetch(
-                      `http://localhost:5000/user/declineFriendRequest/${friend._id}`,
+                      `${SERVER_URL}/user/declineFriendRequest/${friend._id}`,
                       {
                         method: "GET",
                         credentials: "include",
@@ -118,7 +116,7 @@ export default function Account() {
                   onClick={async () => {
                     setLoading(true);
                     await fetch(
-                      `http://localhost:5000/user/removeFriendRequest/${friend._id}`,
+                      `${SERVER_URL}/user/removeFriendRequest/${friend._id}`,
                       {
                         method: "GET",
                         credentials: "include",
@@ -136,7 +134,7 @@ export default function Account() {
             onSubmit={async (e) => {
               e.preventDefault();
               setLoading(true);
-              await fetch(`http://localhost:5000/user/addfriend/${email}`, {
+              await fetch(`${SERVER_URL}/user/addfriend/${email}`, {
                 method: "GET",
                 credentials: "include",
               });

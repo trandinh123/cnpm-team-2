@@ -18,7 +18,7 @@ const server = http.createServer(app);
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.CLIENT_URL || "http://localhost:5000",
     credentials: true,
   })
 );
@@ -45,7 +45,7 @@ app.get("/", verifyAuthenticated, (req, res) => {
   });
 });
 
-server.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, "192.168.1.19", () => {
   console.log("listening on:", process.env.PORT);
 });
 
@@ -57,5 +57,5 @@ mongoose.connect(process.env.MONGODB_URI, (err) => {
 });
 
 const io = new Server(server, {
-  cors: "http://localhost:5000",
+  cors: process.env.SERVER_URL || "http://localhost:5000",
 });

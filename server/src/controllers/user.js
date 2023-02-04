@@ -7,7 +7,10 @@ const create = asyncWrapper(async (req, res) => {
   return res.status(200).json(newUser);
 });
 const get = asyncWrapper(async (req, res) => {
-  const user = await User.findById(req.user._id);
+  const user = await User.findById(req.user._id)
+    .populate("friends", "name _id")
+    .populate("friendRequestReceived", "name _id")
+    .populate("friendRequestSent", "name _id");
   return res.status(200).json({
     success: true,
     data: user,
@@ -25,9 +28,11 @@ const update = asyncWrapper(async (req, res) => {
 });
 
 const addFriend = asyncWrapper(async (req, res) => {
-  const friendId = mongoose.Types.ObjectId(req.params.friendId);
+  const { _id: friendId } = await User.findOne({
+    email: req.params.email,
+  });
   await Promise.all([
-    User.findByIdAndUpdate(friendId, {
+    User.findOneAndUpdate(friendId, {
       $addToSet: { friendRequestReceived: req.user._id },
     }),
     User.findByIdAndUpdate(req.user._id, {
@@ -75,6 +80,36 @@ const unfriend = asyncWrapper(async (req, res) => {
   });
 });
 
+const removeFriendRequest = asyncWrapper(async (req, res) => {
+  const friendId = mongoose.Types.ObjectId(req.params.friendId);
+  await Promise.all([
+    User.findByIdAndUpdate(friendId, {
+      $pull: { friendRequestReceived: req.user._id },
+    }),
+    User.findByIdAndUpdate(req.user._id, {
+      $pull: { friendRequestSent: friendId },
+    }),
+  ]);
+  return res.json({
+    success: true,
+  });
+});
+
+const declineFriendRequest = asyncWrapper(async (req, res) => {
+  const friendId = mongoose.Types.ObjectId(req.params.friendId);
+  await Promise.all([
+    User.findByIdAndUpdate(friendId, {
+      $pull: { friendRequestSent: req.user._id },
+    }),
+    User.findByIdAndUpdate(req.user._id, {
+      $pull: { friendRequestReceived: friendId },
+    }),
+  ]);
+  return res.json({
+    success: true,
+  });
+});
+
 module.exports = {
   get,
   update,
@@ -82,4 +117,6 @@ module.exports = {
   addFriend,
   acceptFriend,
   unfriend,
+  declineFriendRequest,
+  removeFriendRequest,
 };

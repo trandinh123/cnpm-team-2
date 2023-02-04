@@ -4,36 +4,17 @@ import "./styles/bootstrap.css";
 import Home from "./pages/Home/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Account from "./pages/Account/Account";
-import { useEffect, useState } from "react";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import { SERVER_URL } from "./config";
+import useFetchApi from "./hooks/useFetchApi";
 
 function App() {
-  const [userAuth, setUserAuth] = useState();
-  const [loading, setLoading] = useState(true);
-  const getUserAuth = async () => {
-    const user = await fetch("http://localhost:5000/auth/user", {
-      method: "GET",
-      credentials: "include",
-    })
-      .then(async (res) => {
-        const { success, data } = await res.json();
-        if (success) {
-          return data;
-        }
-        return null;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    setUserAuth(user);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    getUserAuth();
-  }, []);
-
-  if (loading) {
+  const {
+    data: userAuth,
+    fetched,
+    loading,
+  } = useFetchApi({ initialUrl: `${SERVER_URL}/auth/user` });
+  if (loading || !fetched) {
     return <>Loading...</>;
   }
 
