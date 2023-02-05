@@ -1,22 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import useFetchApi from "../../hooks/useFetchApi";
 import { SERVER_URL, CLIENT_URL } from "../../config";
+import { UserContext } from "../../context/UserContext";
 
 export default function Account() {
-  const {
-    loading,
-    data: user,
-    fetched,
-    setLoading,
-    refetch,
-  } = useFetchApi({
-    initialUrl: `${SERVER_URL}/user`,
-  });
+  const { user, userLoading, refetchUser, setUserLoading } =
+    useContext(UserContext);
   const [email, setEmail] = useState("");
-  if (!fetched) {
-    return <>Loading....</>;
-  }
 
   return (
     <Layout>
@@ -41,7 +32,7 @@ export default function Account() {
       >
         Logout
       </button>
-      {!!user && !loading && (
+      {!!user && !userLoading && (
         <>
           <div>Id: {user._id}</div>
           <div>Name: {user.name}</div>
@@ -54,12 +45,12 @@ export default function Account() {
                 {friend.name}
                 <button
                   onClick={async () => {
-                    setLoading(true);
+                    setUserLoading(true);
                     await fetch(`${SERVER_URL}/user/unfriend/${friend._id}`, {
                       method: "GET",
                       credentials: "include",
                     });
-                    await refetch();
+                    await refetchUser();
                   }}
                 >
                   Unfriend
@@ -76,7 +67,7 @@ export default function Account() {
                 {friend.name}
                 <button
                   onClick={async () => {
-                    setLoading(true);
+                    setUserLoading(true);
                     await fetch(
                       `${SERVER_URL}/user/acceptfriend/${friend._id}`,
                       {
@@ -84,14 +75,14 @@ export default function Account() {
                         credentials: "include",
                       }
                     );
-                    await refetch();
+                    await refetchUser();
                   }}
                 >
                   Accept
                 </button>
                 <button
                   onClick={async () => {
-                    setLoading(true);
+                    setUserLoading(true);
                     await fetch(
                       `${SERVER_URL}/user/declineFriendRequest/${friend._id}`,
                       {
@@ -99,7 +90,7 @@ export default function Account() {
                         credentials: "include",
                       }
                     );
-                    await refetch();
+                    await refetchUser();
                   }}
                 >
                   Decline
@@ -114,7 +105,7 @@ export default function Account() {
                 {friend.name}
                 <button
                   onClick={async () => {
-                    setLoading(true);
+                    setUserLoading(true);
                     await fetch(
                       `${SERVER_URL}/user/removeFriendRequest/${friend._id}`,
                       {
@@ -122,7 +113,7 @@ export default function Account() {
                         credentials: "include",
                       }
                     );
-                    await refetch();
+                    await refetchUser();
                   }}
                 >
                   Remove request
@@ -133,12 +124,12 @@ export default function Account() {
           <form
             onSubmit={async (e) => {
               e.preventDefault();
-              setLoading(true);
+              setUserLoading(true);
               await fetch(`${SERVER_URL}/user/addfriend/${email}`, {
                 method: "GET",
                 credentials: "include",
               });
-              await refetch();
+              await refetchUser();
             }}
           >
             <div>Input email to add friend</div>
