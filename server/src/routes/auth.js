@@ -13,7 +13,9 @@ async function getSuccessRedirectUrl(req, res, next) {
 router.get(
   "/google",
   getSuccessRedirectUrl,
-  passport.authenticate("google", { scope: ["email", "profile"] })
+  passport.authenticate("google", {
+    scope: ["email", "profile"],
+  })
 );
 
 router.get("/google/logout", (req, res) => {

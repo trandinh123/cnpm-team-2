@@ -7,6 +7,7 @@ import Account from "./pages/Account/Account";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { SERVER_URL } from "./config";
 import useFetchApi from "./hooks/useFetchApi";
+import Test from "./pages/Test/Test";
 
 function App() {
   const {
@@ -23,6 +24,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/account" exact element={<Account />} />
+          <Route path="/test" exact element={<Test />} />
           <Route
             path="/"
             exact
