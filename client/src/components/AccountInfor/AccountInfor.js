@@ -61,7 +61,7 @@ const AccountInfor = ({ accInfOpen, setAccInfOpen }) => {
             <div className="contentAccInf">
               <div className="imageAcc">
                 <img className="coverPhoto" src={coverPhoto} alt="" />
-                <img className="avatar" src={avt} alt="" />
+                <img className="avatar" src={user.picture} alt="" />
                 <h5 className="nameAcc">{user.name}</h5>
               </div>
               <div className="inforUser">
@@ -77,7 +77,13 @@ const AccountInfor = ({ accInfOpen, setAccInfOpen }) => {
                   </li>
                   <li>
                     <p className="titleInf">Giới tính</p>
-                    <p className="cntInf">{user.gender || ""}</p>
+                    <p className="cntInf">
+                      {user.gender === "male"
+                        ? "Nam"
+                        : user.gender === "female"
+                        ? "Nữ"
+                        : ""}
+                    </p>
                   </li>
                   <li>
                     <p className="titleInf">Ngày sinh</p>

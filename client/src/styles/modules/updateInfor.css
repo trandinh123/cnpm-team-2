@@ -16,7 +16,8 @@
   justify-content: space-between;
   padding: 8px 16px 4px 16px;
 }
-.updateInfContainer .headAccInf h4, .updateInfContainer .headAccInf i {
+.updateInfContainer .headAccInf h4,
+.updateInfContainer .headAccInf i {
   font-size: 16px;
   color: var(--text-primary);
   font-weight: 600;
@@ -81,7 +82,7 @@
   margin: 0;
   font-size: 14px;
 }
-.updateInfContainer .updateModal input[type=radio] {
+.updateInfContainer .updateModal input[type="radio"] {
   transform: scale(1.5);
   margin: 12px 10px 16px 5px;
 }
@@ -102,7 +103,9 @@
   margin-top: 8px;
   margin-bottom: 40px;
 }
-.updateInfContainer .updateModal .infUpdate .dateUpdate #day, .updateInfContainer .updateModal .infUpdate .dateUpdate #month, .updateInfContainer .updateModal .infUpdate .dateUpdate #year {
+.updateInfContainer .updateModal .infUpdate .dateUpdate #day,
+.updateInfContainer .updateModal .infUpdate .dateUpdate #month,
+.updateInfContainer .updateModal .infUpdate .dateUpdate #year {
   padding: 0 10px;
   background-color: transparent;
   border: 0.5px solid var(--border-update);
@@ -118,7 +121,8 @@
 .updateInfContainer .updateModal .infUpdate .dateUpdate #year {
   flex-grow: 1.5;
 }
-.updateInfContainer .updateModal .infUpdate .cancelbtn, .updateInfContainer .updateModal .infUpdate input[type=submit] {
+.updateInfContainer .updateModal .infUpdate .cancelbtn,
+.updateInfContainer .updateModal .infUpdate button[type="submit"] {
   padding: 8px 16px;
   float: right;
   margin-bottom: 16px;
@@ -128,10 +132,10 @@
   font-size: 16px;
   font-weight: 600;
 }
-.updateInfContainer .updateModal .infUpdate input[type=submit] {
-  background-color: var(--button-primary-disabled);
+.updateInfContainer .updateModal .infUpdate button[type="submit"] {
+  background-color: var(--button-primary-normal);
   color: var(--button-primary-text-disabled);
 }
 .updateInfContainer .updateModal .infUpdate .cancelbtn:hover {
   background-color: var(--button-neutral-hover);
-}/*# sourceMappingURL=updateInfor.css.map */
+} /*# sourceMappingURL=updateInfor.css.map */

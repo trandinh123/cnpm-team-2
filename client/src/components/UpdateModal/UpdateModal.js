@@ -2,13 +2,31 @@ import React from "react";
 // import "../../styles/modules/accountInfor.css";
 import "../../styles/modules/updateInfor.css";
 import coverPhoto from "../../img/anhbia.jpg";
-import avt from "../../img/avatar.png";
 import { useState, useEffect, useRef, useCallback, useContext } from "react";
 import { animated, useSpring } from "react-spring";
 import { UserContext } from "../../context/UserContext";
+import { SERVER_URL } from "../../config";
 
 const UpdateModal = ({ openModal, setOpenModal, setAccInfOpen }) => {
-  const { user } = useContext(UserContext);
+  const { user, setUserLoading, refetchUser } = useContext(UserContext);
+
+  const [updateUser, setUpdateUser] = useState(user);
+  const initialBirthday = () => {
+    if (user.birthday !== "") {
+      const [day, month, year] = user.birthday.split("/");
+      return {
+        day,
+        month,
+        year,
+      };
+    }
+    return {
+      day: "01",
+      month: "01",
+      year: "1900",
+    };
+  };
+  const [birthday, setBirthday] = useState(() => initialBirthday());
   const handleClose = () => {
     setOpenModal(false);
     setAccInfOpen(false);
@@ -85,10 +103,32 @@ const UpdateModal = ({ openModal, setOpenModal, setAccInfOpen }) => {
     }
   }
 
-  const years = flagYear ? ["2002"] : y;
-  const months = flagMonth ? ["01"] : m;
-  const days = flagDay ? ["14"] : d;
-
+  const years = flagYear ? [birthday.year] : y;
+  const months = flagMonth ? [birthday.month] : m;
+  const days = flagDay ? [birthday.day] : d;
+  const handleChangeBirthday = ({ type, value }) => {
+    setBirthday((prev) => ({ ...prev, [type]: value }));
+  };
+  const handleSaveUpdate = async (e) => {
+    try {
+      e.preventDefault();
+      await fetch(`${SERVER_URL}/user`, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...updateUser,
+          birthday: Object.values(birthday).join("/"),
+        }),
+      });
+      await refetchUser();
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     openModal && (
       <div className="updateInfContainer" ref={modalRef} onClick={modalClose}>
@@ -105,12 +145,22 @@ const UpdateModal = ({ openModal, setOpenModal, setAccInfOpen }) => {
             <div className="updateContent">
               <img className="coverPhotoUpdate" src={coverPhoto} alt="" />
               <div className="imageAcc">
-                <img className="avatarUpdate" src={avt} alt="" />
+                <img className="avatarUpdate" src={updateUser.picture} alt="" />
                 <i class="fa-solid fa-camera camera"></i>
               </div>
               <div className="nameUpdate">
                 <p className="text">Tên hiển thị</p>
-                <input type="text" value={user.name} id="nameInput" />
+                <input
+                  type="text"
+                  value={updateUser.name}
+                  id="nameInput"
+                  onChange={(e) =>
+                    setUpdateUser((prev) => ({
+                      ...prev,
+                      name: e.target.value,
+                    }))
+                  }
+                />
                 <small>Sử dụng tên thật để bạn bè dễ nhận diện hơn</small>
               </div>
               <hr />
@@ -123,8 +173,15 @@ const UpdateModal = ({ openModal, setOpenModal, setAccInfOpen }) => {
                       type="radio"
                       id="male"
                       name="sex"
-                      value="Nam"
+                      value="male"
                       className="sex"
+                      checked={updateUser.gender === "male"}
+                      onClick={(e) =>
+                        setUpdateUser((prev) => ({
+                          ...prev,
+                          gender: e.target.value,
+                        }))
+                      }
                     />
                     <label for="male" className="text">
                       Nam
@@ -133,8 +190,15 @@ const UpdateModal = ({ openModal, setOpenModal, setAccInfOpen }) => {
                       type="radio"
                       id="female"
                       name="sex"
-                      value="Nữ"
+                      value="female"
                       className="sex"
+                      onClick={(e) =>
+                        setUpdateUser((prev) => ({
+                          ...prev,
+                          gender: e.target.value,
+                        }))
+                      }
+                      checked={updateUser.gender === "female"}
                     />
                     <label for="female" className="text">
                       Nữ
@@ -148,6 +212,12 @@ const UpdateModal = ({ openModal, setOpenModal, setAccInfOpen }) => {
                         onClick={() => {
                           setFlagDay(false);
                         }}
+                        onChange={(e) =>
+                          handleChangeBirthday({
+                            type: "day",
+                            value: e.target.value,
+                          })
+                        }
                       >
                         {days.map((value, index) => (
                           <option value={value} key={index}>
@@ -161,9 +231,12 @@ const UpdateModal = ({ openModal, setOpenModal, setAccInfOpen }) => {
                         onClick={() => {
                           setFlagMonth(false);
                         }}
-                        onChange={(e) => {
-                          setMonth(e.target.value);
-                        }}
+                        onChange={(e) =>
+                          handleChangeBirthday({
+                            type: "month",
+                            value: e.target.value,
+                          })
+                        }
                       >
                         {months.map((value, index) => (
                           <option value={value} key={index}>
@@ -177,9 +250,12 @@ const UpdateModal = ({ openModal, setOpenModal, setAccInfOpen }) => {
                         onClick={() => {
                           setFlagYear(false);
                         }}
-                        onChange={(e) => {
-                          setYear(e.target.value);
-                        }}
+                        onChange={(e) =>
+                          handleChangeBirthday({
+                            type: "year",
+                            value: e.target.value,
+                          })
+                        }
                       >
                         {years.map((value, index) => (
                           <option value={value} key={index}>
@@ -188,7 +264,9 @@ const UpdateModal = ({ openModal, setOpenModal, setAccInfOpen }) => {
                         ))}
                       </select>
                     </div>
-                    <input type="submit" value="Cập nhật" />
+                    <button type="submit" onClick={handleSaveUpdate}>
+                      Cập nhật
+                    </button>
                     <button className="cancelbtn" onClick={handleClose}>
                       Hủy
                     </button>
