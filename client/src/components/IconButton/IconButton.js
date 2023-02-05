@@ -1,6 +1,10 @@
 import React from "react";
 
-export default function IconButton({ icon, customClass = "" }) {
+export default function IconButton({
+  icon,
+  customClass = "",
+  onClick = () => {},
+}) {
   return (
     <div
       style={{
@@ -8,6 +12,7 @@ export default function IconButton({ icon, customClass = "" }) {
         padding: 0,
       }}
       className={`${customClass} d-flex justify-content-center align-items-center`}
+      onClick={onClick}
     >
       {icon}
     </div>

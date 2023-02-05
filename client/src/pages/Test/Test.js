@@ -9,6 +9,7 @@ import ListGroup from "./../../components/ListGroup/ListGroup";
 export default function Home() {
   return (
     <Layout>
+      <CreateGroup />
     </Layout>
   );
 }

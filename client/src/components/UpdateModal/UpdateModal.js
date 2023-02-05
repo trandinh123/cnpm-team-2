@@ -8,7 +8,7 @@ import { UserContext } from "../../context/UserContext";
 import { SERVER_URL } from "../../config";
 
 const UpdateModal = ({ openModal, setOpenModal, setAccInfOpen }) => {
-  const { user, setUserLoading, refetchUser } = useContext(UserContext);
+  const { user, refetchUser, userLoading } = useContext(UserContext);
 
   const [updateUser, setUpdateUser] = useState(user);
   const initialBirthday = () => {
@@ -129,152 +129,171 @@ const UpdateModal = ({ openModal, setOpenModal, setAccInfOpen }) => {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    setBirthday(initialBirthday());
+    setFlagDay(true);
+    setFlagMonth(true);
+    setFlagYear(true);
+  }, [user]);
+
   return (
     openModal && (
       <div className="updateInfContainer" ref={modalRef} onClick={modalClose}>
         <animated.div style={animation}>
-          <div className="updateModal">
-            <div className="headAccInf">
-              <h4>Cập nhật thông tin</h4>
-              <i
-                class="fa-regular fa-x"
-                onClick={handleClose}
-                style={{ cursor: "pointer" }}
-              ></i>
-            </div>
-            <div className="updateContent">
-              <img className="coverPhotoUpdate" src={coverPhoto} alt="" />
-              <div className="imageAcc">
-                <img className="avatarUpdate" src={updateUser.picture} alt="" />
-                <i class="fa-solid fa-camera camera"></i>
+          {!userLoading && (
+            <div className="updateModal">
+              <div className="headAccInf">
+                <h4>Cập nhật thông tin</h4>
+                <i
+                  class="fa-regular fa-x"
+                  onClick={handleClose}
+                  style={{ cursor: "pointer" }}
+                ></i>
               </div>
-              <div className="nameUpdate">
-                <p className="text">Tên hiển thị</p>
-                <input
-                  type="text"
-                  value={updateUser.name}
-                  id="nameInput"
-                  onChange={(e) =>
-                    setUpdateUser((prev) => ({
-                      ...prev,
-                      name: e.target.value,
-                    }))
-                  }
-                />
-                <small>Sử dụng tên thật để bạn bè dễ nhận diện hơn</small>
-              </div>
-              <hr />
-              <div className="inforUser">
-                <div className="title">Thông tin cá nhân</div>
-                <div className="infUpdate">
-                  <form>
-                    <p className="text">Giới tính</p>
-                    <input
-                      type="radio"
-                      id="male"
-                      name="sex"
-                      value="male"
-                      className="sex"
-                      checked={updateUser.gender === "male"}
-                      onClick={(e) =>
-                        setUpdateUser((prev) => ({
-                          ...prev,
-                          gender: e.target.value,
-                        }))
-                      }
-                    />
-                    <label for="male" className="text">
-                      Nam
-                    </label>
-                    <input
-                      type="radio"
-                      id="female"
-                      name="sex"
-                      value="female"
-                      className="sex"
-                      onClick={(e) =>
-                        setUpdateUser((prev) => ({
-                          ...prev,
-                          gender: e.target.value,
-                        }))
-                      }
-                      checked={updateUser.gender === "female"}
-                    />
-                    <label for="female" className="text">
-                      Nữ
-                    </label>
+              <div className="updateContent">
+                <img className="coverPhotoUpdate" src={coverPhoto} alt="" />
+                <div className="imageAcc">
+                  <img
+                    className="avatarUpdate"
+                    src={updateUser.picture}
+                    alt=""
+                  />
+                  <i class="fa-solid fa-camera camera"></i>
+                </div>
+                <div className="nameUpdate">
+                  <p className="text">Tên hiển thị</p>
+                  <input
+                    type="text"
+                    value={updateUser.name}
+                    id="nameInput"
+                    onChange={(e) =>
+                      setUpdateUser((prev) => ({
+                        ...prev,
+                        name: e.target.value,
+                      }))
+                    }
+                  />
+                  <small>Sử dụng tên thật để bạn bè dễ nhận diện hơn</small>
+                </div>
+                <hr />
+                <div className="inforUser">
+                  <div className="title">Thông tin cá nhân</div>
+                  <div className="infUpdate">
+                    <form>
+                      <p className="text">Giới tính</p>
+                      <input
+                        type="radio"
+                        id="male"
+                        name="sex"
+                        value="male"
+                        className="sex"
+                        checked={updateUser.gender === "male"}
+                        onClick={(e) =>
+                          setUpdateUser((prev) => ({
+                            ...prev,
+                            gender: e.target.value,
+                          }))
+                        }
+                      />
+                      <label for="male" className="text">
+                        Nam
+                      </label>
+                      <input
+                        type="radio"
+                        id="female"
+                        name="sex"
+                        value="female"
+                        className="sex"
+                        onClick={(e) =>
+                          setUpdateUser((prev) => ({
+                            ...prev,
+                            gender: e.target.value,
+                          }))
+                        }
+                        checked={updateUser.gender === "female"}
+                      />
+                      <label for="female" className="text">
+                        Nữ
+                      </label>
 
-                    <p className="text">Ngày sinh</p>
-                    <div className="dateUpdate">
-                      <select
-                        id="day"
-                        name="days"
-                        onClick={() => {
-                          setFlagDay(false);
-                        }}
-                        onChange={(e) =>
-                          handleChangeBirthday({
-                            type: "day",
-                            value: e.target.value,
-                          })
-                        }
-                      >
-                        {days.map((value, index) => (
-                          <option value={value} key={index}>
-                            {value}
-                          </option>
-                        ))}
-                      </select>
-                      <select
-                        id="month"
-                        name="months"
-                        onClick={() => {
-                          setFlagMonth(false);
-                        }}
-                        onChange={(e) =>
-                          handleChangeBirthday({
-                            type: "month",
-                            value: e.target.value,
-                          })
-                        }
-                      >
-                        {months.map((value, index) => (
-                          <option value={value} key={index}>
-                            {value}
-                          </option>
-                        ))}
-                      </select>
-                      <select
-                        id="year"
-                        name="years"
-                        onClick={() => {
-                          setFlagYear(false);
-                        }}
-                        onChange={(e) =>
-                          handleChangeBirthday({
-                            type: "year",
-                            value: e.target.value,
-                          })
-                        }
-                      >
-                        {years.map((value, index) => (
-                          <option value={value} key={index}>
-                            {value}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <button type="submit" onClick={handleSaveUpdate}>
-                      Cập nhật
-                    </button>
-                    <button className="cancelbtn" onClick={handleClose}>
-                      Hủy
-                    </button>
-                  </form>
+                      <p className="text">Ngày sinh</p>
+                      <div className="dateUpdate">
+                        <select
+                          id="day"
+                          name="days"
+                          onClick={() => {
+                            setFlagDay(false);
+                          }}
+                          onChange={(e) =>
+                            handleChangeBirthday({
+                              type: "day",
+                              value: e.target.value,
+                            })
+                          }
+                        >
+                          {days.map((value, index) => (
+                            <option value={value} key={index}>
+                              {value}
+                            </option>
+                          ))}
+                        </select>
+                        <select
+                          id="month"
+                          name="months"
+                          onClick={() => {
+                            setFlagMonth(false);
+                          }}
+                          onChange={(e) =>
+                            handleChangeBirthday({
+                              type: "month",
+                              value: e.target.value,
+                            })
+                          }
+                        >
+                          {months.map((value, index) => (
+                            <option value={value} key={index}>
+                              {value}
+                            </option>
+                          ))}
+                        </select>
+                        <select
+                          id="year"
+                          name="years"
+                          onClick={() => {
+                            setFlagYear(false);
+                          }}
+                          onChange={(e) =>
+                            handleChangeBirthday({
+                              type: "year",
+                              value: e.target.value,
+                            })
+                          }
+                        >
+                          {years.map((value, index) => (
+                            <option value={value} key={index}>
+                              {value}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <button type="submit" onClick={handleSaveUpdate}>
+                        Cập nhật
+                      </button>
+                      <button className="cancelbtn" onClick={handleClose}>
+                        Hủy
+                      </button>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
+          {userLoading && (
+            <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          )}
         </animated.div>
       </div>
     )

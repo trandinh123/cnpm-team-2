@@ -26,6 +26,7 @@ import SettingModal from "../SettingModal/SettingModal";
 import AccountInfor from "../AccountInfor/AccountInfor";
 import { useState } from "react";
 import CallScreen from "../CallScreen/CallScreen";
+import { useNavigate } from "react-router-dom";
 
 export default function Layout({ navigationContent, children }) {
   const [settingModalOpen, setSettingModalOpen] = useState(false);
@@ -35,6 +36,7 @@ export default function Layout({ navigationContent, children }) {
     setOpen(1);
     setSettingModalOpen(!settingModalOpen);
   };
+  const navigate = useNavigate();
   return (
     <LayoutContainer>
       <PageNavigation
@@ -53,7 +55,12 @@ export default function Layout({ navigationContent, children }) {
               src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
               style={{ cursor: "pointer", width: "48px", height: "48px" }}
             />
-            <IconButton icon={<RiContactsBookLine />} />
+            <IconButton
+              icon={<RiContactsBookLine />}
+              onClick={() => {
+                return navigate("/contact");
+              }}
+            />
             <IconButton icon={<RiChat3Line />} />
             <IconButton icon={<TfiCheckBox />} />
           </Container>

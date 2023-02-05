@@ -8,22 +8,22 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { SERVER_URL } from "./config";
 import useFetchApi from "./hooks/useFetchApi";
 import Test from "./pages/Test/Test";
-import { useEffect } from "react";
 import { UserContext } from "./context/UserContext";
+import Contact from "./pages/Contact/Contact";
+import AddFriendList from "./components/AddFriendList/AddFriendList";
 
 function App() {
   const {
-    loading,
     data: userAuth,
     fetched,
     setLoading: setUserLoading,
     loading: userLoading,
-    refetch: refetchUser
+    refetch: refetchUser,
   } = useFetchApi({
     initialUrl: `${SERVER_URL}/user`,
   });
 
-  if (loading || !fetched) {
+  if (!fetched) {
     return <>Loading...</>;
   }
 
@@ -34,11 +34,15 @@ function App() {
           user: userAuth,
           userLoading,
           setUserLoading,
-          refetchUser
+          refetchUser,
         }}
       >
         <Router>
           <Routes>
+            <Route path="/contact" exact element={<Contact />}>
+              <Route path="friendInvitations" element={<AddFriendList />} />
+              <Route path="groupInvitations" element={<>group list</>} />
+            </Route>
             <Route path="/account" exact element={<Account />} />
             <Route path="/test" exact element={<Test />} />
             <Route

@@ -5,8 +5,10 @@ import Image from "react-bootstrap/Image";
 import AddFriendIcon from "../../resources/icons/AddFriendIcon.svg";
 import ListGroupIcon from "../../resources/icons/ListGroupIcon.svg";
 import Avatar from "../Avatar/Avatar";
+import { useNavigate } from "react-router-dom";
 
 export default function ContactNavigation() {
+  const navigate = useNavigate();
   return (
     <Container style={{ paddingLeft: "16px" }}>
       <Container className="p-0">
@@ -14,6 +16,7 @@ export default function ContactNavigation() {
           className="d-flex align-items-center flex-nowrap"
           role="button"
           style={{ padding: "12px 0" }}
+          onClick={() => navigate("friendInvitations")}
         >
           <Image
             roundedCircle
@@ -32,6 +35,7 @@ export default function ContactNavigation() {
           className="d-flex align-items-center flex-nowrap"
           role="button"
           style={{ padding: "12px 0" }}
+          onClick={() => navigate("groupInvitations")}
         >
           <Image
             roundedCircle
