@@ -17,6 +17,7 @@ export const ContactNavigation = styled.div`
 export const MainContent = styled.div`
   width: 70%;
   background: #fafafc;
+  flex: 1 1 auto;
 `;
 
 export const SearchContainer = styled.div``;

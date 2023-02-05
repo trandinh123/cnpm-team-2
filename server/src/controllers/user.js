@@ -9,7 +9,7 @@ const create = asyncWrapper(async (req, res) => {
 });
 const get = asyncWrapper(async (req, res) => {
   const user = await User.findById(req.user._id)
-    .populate("friends", "name _id")
+    .populate("friends", "name _id picture")
     .populate("friendRequestReceived", "name _id picture")
     .populate("friendRequestSent", "name _id picture");
   return res.status(200).json({

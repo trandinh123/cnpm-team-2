@@ -25,8 +25,9 @@ import IconButton from "../IconButton/IconButton";
 import SettingModal from "../SettingModal/SettingModal";
 import AccountInfor from "../AccountInfor/AccountInfor";
 import { useState } from "react";
-import CallScreen from "../CallScreen/CallScreen";
 import { useNavigate } from "react-router-dom";
+import useAddUserModal from "../useAddUserModal/useAddUserModal";
+import useCreateGroupModal from "./../CreateGroupModal/useCreateGroupModal";
 
 export default function Layout({ navigationContent, children }) {
   const [settingModalOpen, setSettingModalOpen] = useState(false);
@@ -36,6 +37,8 @@ export default function Layout({ navigationContent, children }) {
     setOpen(1);
     setSettingModalOpen(!settingModalOpen);
   };
+  const { addUserModal, openAddUserModal } = useAddUserModal();
+  const { createGroupModal, openCreateGroupModal } = useCreateGroupModal();
   const navigate = useNavigate();
   return (
     <LayoutContainer>
@@ -102,9 +105,16 @@ export default function Layout({ navigationContent, children }) {
               className="d-flex align-items-center justify-content-center px-0"
               style={{ columnGap: "20px" }}
             >
-              <IconContext.Provider value={{ size: 30, color: "white" }}>
-                <IconButton icon={<AiOutlineUserAdd />} />
-                <IconButton icon={<AiOutlineUsergroupAdd />} />
+              <IconContext.Provider value={{ size: 20, color: "black" }}>
+                <IconButton
+                  icon={<AiOutlineUserAdd />}
+                  onClick={openAddUserModal}
+                />
+                <IconButton
+                  icon={
+                    <AiOutlineUsergroupAdd onClick={openCreateGroupModal} />
+                  }
+                />
               </IconContext.Provider>
             </Col>
           </Row>
@@ -113,6 +123,8 @@ export default function Layout({ navigationContent, children }) {
       </ContactNavigation>
       <MainContent>{children}</MainContent>
       <AccountInfor accInfOpen={accInfOpen} setAccInfOpen={setAccInfOpen} />
+      {addUserModal}
+      {createGroupModal}
     </LayoutContainer>
   );
 }

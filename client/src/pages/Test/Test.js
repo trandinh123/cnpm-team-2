@@ -1,12 +1,8 @@
 import React from "react";
 import Layout from "../../components/Layout/Layout";
-import MessageNavigation from "../../components/MessageNavigation/MessageNavigation";
-import AddUser from "../../components/AddUser/AddUser";
-import CreateGroup from "./../../components/CreateGroup/CreateGroup";
-// import ListGroup from "./../../components/CreateGroup/CreateGroup";
-import ListGroup from "./../../components/ListGroup/ListGroup";
+import CreateGroup from "../../components/CreateGroupModal/useCreateGroupModal";
 
-export default function Home() {
+export default function Test() {
   return (
     <Layout>
       <CreateGroup />
