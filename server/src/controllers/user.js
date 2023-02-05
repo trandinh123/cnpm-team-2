@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const asyncWrapper = require("../utils/asyncWrapper");
 const mongoose = require("mongoose");
+const pickFields = require("../utils/pickFields");
 
 const create = asyncWrapper(async (req, res) => {
   const newUser = await User.create(req.body);
@@ -17,9 +18,9 @@ const get = asyncWrapper(async (req, res) => {
   });
 });
 const update = asyncWrapper(async (req, res) => {
-  const id = mongoose.Types.ObjectId(req.params.id);
-  const updatedUser = await User.findByIdAndUpdate(id, {
-    ...req.body,
+  const updateInfo = pickFields(req.body, ["name", "gender", "birthday"]);
+  const updatedUser = await User.findByIdAndUpdate(req.user._id, {
+    ...updateInfo,
   });
   return res.status(200).json({
     success: true,

@@ -45,7 +45,8 @@ const AccountInfor = ({ accInfOpen, setAccInfOpen }) => {
   }, [keyPress]);
 
   return (
-    accInfOpen && (
+    accInfOpen &&
+    user && (
       <div className="accContainer" ref={modalRef} onClick={closeModal}>
         <animated.div style={animation}>
           <div className="accModal">

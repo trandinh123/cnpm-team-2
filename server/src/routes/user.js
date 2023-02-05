@@ -5,7 +5,7 @@ const router = express.Router();
 const userController = require("../controllers/user");
 
 router.get("/", verifyAuthenticated, userController.get);
-router.put("/:id", verifyAuthenticated, userController.update);
+router.put("/", verifyAuthenticated, userController.update);
 router.get("/addfriend/:email", verifyAuthenticated, userController.addFriend);
 router.get("/unfriend/:friendId", verifyAuthenticated, userController.unfriend);
 router.get(
