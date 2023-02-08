@@ -1,4 +1,5 @@
 const User = require("../models/User");
+require("dotenv").config("../../.env");
 
 async function verifyAuthenticated(req, res, next) {
   if (process.env.TEST_USER) {
