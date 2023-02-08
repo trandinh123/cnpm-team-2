@@ -5,7 +5,7 @@ import Row from "react-bootstrap/esm/Row";
 export default function Test() {
   return (
     <Layout>
-      <div id="root" style={{backgroundColor:"#d2d3d5", width:"100%", height:"100%"}}>
+      <div id="Root" style={{backgroundColor:"#d2d3d5", width:"100%", height:"100%"}}>
         <Container style={{width:"1042px", height:"960px", display:"flex", flexDirection:"column", padding:"0px", flexGrow:"3", marginLeft:"2px"}} >
           <Row style={{height:"68px", width:"1042px", backgroundColor:"white", display:"flex", flexDirection:"row", margin:"0px"}}>
               <img class="rounded-circle" src="image/meo.jpg" style={{width: "48px", height:"48px", padding: "0px", marginLeft:"16px", marginTop:"12px"}}></img>
