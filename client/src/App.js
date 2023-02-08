@@ -42,6 +42,7 @@ function App() {
             <Route path="/contact" exact element={<Contact />}>
               <Route path="friendInvitations" element={<AddFriendList />} />
               <Route path="groupInvitations" element={<>group list</>} />
+              <Route path="privateConversation/:friendId" element={<Test />} />
             </Route>
             <Route path="/account" exact element={<Account />} />
             <Route path="/test" exact element={<Test />} />

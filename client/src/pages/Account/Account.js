@@ -1,13 +1,14 @@
 import React, { useContext, useState } from "react";
 import Layout from "../../components/Layout/Layout";
-import useFetchApi from "../../hooks/useFetchApi";
 import { SERVER_URL, CLIENT_URL } from "../../config";
 import { UserContext } from "../../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Account() {
   const { user, userLoading, refetchUser, setUserLoading } =
     useContext(UserContext);
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
   return (
     <Layout>
@@ -54,6 +55,16 @@ export default function Account() {
                   }}
                 >
                   Unfriend
+                </button>
+                <button
+                  onClick={async () => {
+                    return navigate(
+                      `/contact/privateConversation/${friend._id}`,
+                      { replace: true }
+                    );
+                  }}
+                >
+                  chat
                 </button>
               </li>
             ))}

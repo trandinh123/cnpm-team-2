@@ -8,5 +8,9 @@ router.get("/", (req, res) => {
 });
 router.get("/:id", conversationController.get);
 router.post("/", conversationController.create);
+router.get(
+  "/privateConversation/:friendId",
+  conversationController.getPrivateConversation
+);
 
 module.exports = router;

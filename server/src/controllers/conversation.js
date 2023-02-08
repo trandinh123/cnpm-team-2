@@ -15,7 +15,19 @@ const get = asyncWrapper(async (req, res) => {
   });
 });
 
+const getPrivateConversation = asyncWrapper(async (req, res) => {
+  const friendId = mongoose.Types.ObjectId(req.params.friendId);
+  const conversation = await Conversation.findOne({
+    isGroupChat: false,
+    users: { $all: [req.user._id, friendId] },
+  });
+  return res.json({
+    success: true,
+    data: conversation,
+  });
+});
 module.exports = {
   get,
   create,
+  getPrivateConversation
 };
