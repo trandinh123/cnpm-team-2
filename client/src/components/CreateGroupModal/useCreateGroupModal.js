@@ -8,7 +8,7 @@ import Form from "react-bootstrap/Form";
 
 export default function useCreateGroupModal() {
   const { user } = useContext(UserContext);
-  console.log(user?.friends);
+
   const content = (
     <>
       <Container
@@ -110,9 +110,7 @@ export default function useCreateGroupModal() {
     heading: "Tạo nhóm",
     primaryAction: {
       label: "Tạo nhóm",
-      action: async () => {
-        
-      },
+      action: async () => {},
     },
     secondaryAction: {
       label: "Hủy",
