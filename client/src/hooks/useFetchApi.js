@@ -19,6 +19,7 @@ export default function useFetchApi({ initialUrl, method = "GET" }) {
         console.log(err.message);
       } finally {
         setLoading(false);
+        setFetched(true);
       }
     },
     [method, initialUrl]
@@ -27,7 +28,6 @@ export default function useFetchApi({ initialUrl, method = "GET" }) {
   useEffect(() => {
     if (!fetched) {
       fetchData();
-      setFetched(true);
     }
   }, [fetchData, fetched]);
 
