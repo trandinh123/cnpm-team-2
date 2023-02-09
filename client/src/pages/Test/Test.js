@@ -59,7 +59,7 @@ export default function Test() {
             <Container class="card-footer text-muted" style={{backgroundColor:"white", display:"flex", justifyContent:"start",alignItems:"center", padding:"16px", marginTop:"2px"}}>
                 <img src="image/meo.jpg" class="rounded-circle" style={{width: "45px", height: "45px"}}></img>
                 <input type="text" class="form-control form-control-lg" id="exampleFormControlInput1"
-                  placeholder="Type message" style={{border:"none"}}></input>
+                  placeholder="type message" style={{border:"none"}}></input>
                 <button style={{border:"none", backgroundColor:"white", height:"45px", width:"45px"}}>
                   <img src="image/send.jpg" style={{border:"none",  height:"35px", width:"35px"}}></img>
                 </button>
