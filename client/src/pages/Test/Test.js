@@ -5,7 +5,7 @@ import Row from "react-bootstrap/esm/Row";
 export default function Test() {
   return (
     <Layout>
-      <div id="Root" style={{backgroundColor:"#d2d3d5", width:"100%", height:"100%"}}>
+      <div id="root" style={{backgroundColor:"#d2d3d5", width:"100%", height:"100%"}}>
         <Container style={{width:"1042px", height:"960px", display:"flex", flexDirection:"column", padding:"0px", flexGrow:"3", marginLeft:"2px"}} >
           <Row style={{height:"68px", width:"1042px", backgroundColor:"white", display:"flex", flexDirection:"row", margin:"0px"}}>
               <img class="rounded-circle" src="image/meo.jpg" style={{width: "48px", height:"48px", padding: "0px", marginLeft:"16px", marginTop:"12px"}}></img>
@@ -31,9 +31,7 @@ export default function Test() {
                 <div>
                   <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Hiii, I'm good.</p>
                   <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">How are you doing?</p>
-                  <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Long time no see! Tomorrow
-                    office. will
-                    be free on sunday.</p>
+                  <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Long time no see! Tomorrow office. Will be free on sunday.</p>
                   <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">00:06</p>
                 </div>
                 <img src="image/meo.jpg" class="rounded-circle" style={{width: "45px", height: "45px"}}></img>
@@ -42,8 +40,7 @@ export default function Test() {
                 <img src="image/meo.jpg" class="rounded-circle" style={{width: "45px", height: "45px"}}></img>
                 <div>
                   <p class="small p-2 ms-3 mb-1 rounded-3" style={{backgroundColor: "#f5f6f7"}}>Okay</p>
-                  <p class="small p-2 ms-3 mb-1 rounded-3" style={{backgroundColor: "#f5f6f7"}}>We will go on
-                    Sunday?</p>
+                  <p class="small p-2 ms-3 mb-1 rounded-3" style={{backgroundColor: "#f5f6f7"}}>We will go on Sunday?</p>
                   <p class="small ms-3 mb-3 rounded-3 text-muted">00:07</p>
                 </div>
               </Container>
