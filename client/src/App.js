@@ -13,6 +13,7 @@ import Contact from "./pages/Contact/Contact";
 import AddFriendList from "./components/AddFriendList/AddFriendList";
 import socket from "./services/socketIO";
 import { useEffect } from "react";
+import PrivateConversation from "./pages/PrivateConversation/PrivateConversation";
 
 function App() {
   const {
@@ -53,7 +54,7 @@ function App() {
               <Route path="groupInvitations" element={<>group list</>} />
               <Route
                 path="privateConversation/:friendId"
-                element={<Test socket={socket} />}
+                element={<PrivateConversation socket={socket} />}
                 exact
               />
             </Route>
