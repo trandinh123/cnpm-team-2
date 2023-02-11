@@ -12,6 +12,8 @@ const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 const conversationRouter = require("./routes/conversation");
 const messageRouter = require("./routes/message");
+const Message = require("./models/Message");
+const Conversation = require("./models/Conversation");
 
 const app = express();
 const server = http.createServer(app);
@@ -57,5 +59,32 @@ mongoose.connect(process.env.MONGODB_URI, (err) => {
 });
 
 const io = new Server(server, {
-  cors: process.env.SERVER_URL || "http://localhost:5000",
+  cors: process.env.CLIENT_URL || "http://localhost:3000",
+});
+
+io.use((socket, next) => {
+  const { user } = socket.handshake.auth;
+  if (!user) {
+    return next(new Error("invalid username"));
+  }
+  socket.user = user;
+  next();
+});
+
+io.on("connection", (socket) => {
+  socket.join(socket.user._id);
+  socket.on("private message", async ({ content, to, conversation }) => {
+    socket.to(to).to(socket.user._id).emit("private message", {
+      content,
+      from: socket.user,
+      to,
+      conversation,
+    });
+    await Message.create({
+      sender: socket.user._id,
+      readerBy: to,
+      content,
+      conversation,
+    });
+  });
 });

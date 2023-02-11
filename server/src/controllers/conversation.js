@@ -1,4 +1,5 @@
 const Conversation = require("../models/Conversation");
+const Message = require("../models/Message");
 const asyncWrapper = require("../utils/asyncWrapper");
 const mongoose = require("mongoose");
 
@@ -21,13 +22,30 @@ const getPrivateConversation = asyncWrapper(async (req, res) => {
     isGroupChat: false,
     users: { $all: [req.user._id, friendId] },
   });
+  if (!conversation) {
+    const newConversation = await Conversation.create({
+      isGroupChat: false,
+      users: [req.user._id, friendId],
+    });
+    return res.json({
+      success: true,
+      data: newConversation,
+    });
+  }
   return res.json({
     success: true,
     data: conversation,
   });
 });
+
+const createGroupConversation = asyncWrapper(async (req, res) => {
+  const newConversation = await Conversation.create(req.body);
+  return res.status(200).json(newConversation);
+});
+
 module.exports = {
   get,
   create,
-  getPrivateConversation
+  getPrivateConversation,
+  createGroupConversation,
 };

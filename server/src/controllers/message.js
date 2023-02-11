@@ -16,7 +16,13 @@ const get = asyncWrapper(async (req, res) => {
   });
 });
 
-const getByConversationId = asyncWrapper(async (req, res) => {
+const getAllByConversationId = asyncWrapper(async (req, res) => {
+  if (req.query.conversationId === "undefined") {
+    return {
+      success: false,
+      data: [],
+    };
+  }
   const conversationId = mongoose.Types.ObjectId(req.query.conversationId);
   const messages = await Message.find({
     conversation: conversationId,
@@ -32,5 +38,5 @@ const getByConversationId = asyncWrapper(async (req, res) => {
 module.exports = {
   get,
   create,
-  getByConversationId,
+  getAllByConversationId,
 };

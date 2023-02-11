@@ -61,6 +61,9 @@ export default function ContactNavigation() {
             role="button"
             style={{ padding: "12px 0" }}
             key={user?._id}
+            onClick={() => {
+              navigate(`/contact/privateConversation/${user._id}`);
+            }}
           >
             <Avatar src={user.picture} />
             <span
