@@ -4,9 +4,11 @@ export default function IconButton({
   icon,
   customClass = "",
   onClick = () => {},
+  type = "",
 }) {
   return (
     <div
+      type={type}
       style={{
         cursor: "pointer",
         padding: 0,
