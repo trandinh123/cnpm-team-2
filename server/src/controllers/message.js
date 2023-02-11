@@ -28,7 +28,8 @@ const getAllByConversationId = asyncWrapper(async (req, res) => {
     conversation: conversationId,
   })
     .populate("sender")
-    .populate("conversation");
+    .populate("conversation")
+    .sort({ createdAt: "asc" });
   return res.status(200).json({
     success: true,
     data: messages,

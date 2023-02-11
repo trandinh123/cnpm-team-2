@@ -21,7 +21,7 @@ const getPrivateConversation = asyncWrapper(async (req, res) => {
   const conversation = await Conversation.findOne({
     isGroupChat: false,
     users: { $all: [req.user._id, friendId] },
-  });
+  }).populate("users", "name picture");
   if (!conversation) {
     const newConversation = await Conversation.create({
       isGroupChat: false,

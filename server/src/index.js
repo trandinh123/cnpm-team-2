@@ -82,7 +82,7 @@ io.on("connection", (socket) => {
     });
     await Message.create({
       sender: socket.user._id,
-      readerBy: to,
+      readBy: to,
       content,
       conversation,
     });
