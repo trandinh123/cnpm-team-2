@@ -43,9 +43,21 @@ const createGroupConversation = asyncWrapper(async (req, res) => {
   return res.status(200).json(newConversation);
 });
 
+const getAllGroupConversation = asyncWrapper(async (req, res) => {
+  const conversations = await Conversation.find({
+    isGroupChat: true,
+    users: req.user._id,
+  }).populate("users", "name picture");
+  return res.status(200).json({
+    success: true,
+    data: conversations,
+  });
+});
+
 module.exports = {
   get,
   create,
   getPrivateConversation,
   createGroupConversation,
+  getAllGroupConversation,
 };

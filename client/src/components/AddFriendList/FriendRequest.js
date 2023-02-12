@@ -6,10 +6,9 @@ import { SERVER_URL } from "../../config";
 
 export const Content = styled.div`
   background-color: var(--surface-background-subtle);
-  height: 100%;
   padding: 40px;
-  overflow-y: scroll;
   padding-bottom: 80px;
+  flex: 1 1 auto;
 `;
 
 export const Text = styled.p`
@@ -22,7 +21,6 @@ export const Text = styled.p`
 export const ListBox = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
 `;
 
 const FriendRequest = () => {

@@ -14,6 +14,7 @@ import AddFriendList from "./components/AddFriendList/AddFriendList";
 import socket from "./services/socketIO";
 import { useEffect } from "react";
 import PrivateConversation from "./pages/PrivateConversation/PrivateConversation";
+import AccountGroup from "./components/AccountGroup/AccountGroup";
 
 function App() {
   const {
@@ -51,7 +52,7 @@ function App() {
           <Routes>
             <Route path="/contact" exact element={<Contact />}>
               <Route path="friendInvitations" element={<AddFriendList />} />
-              <Route path="groupInvitations" element={<>group list</>} />
+              <Route path="groupInvitations" element={<AccountGroup />} />
               <Route
                 path="privateConversation/:friendId"
                 element={<PrivateConversation socket={socket} />}

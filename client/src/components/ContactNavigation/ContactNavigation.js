@@ -30,7 +30,7 @@ export default function ContactNavigation() {
           <span
             style={{ fontSize: "16px", color: "#081C36", paddingLeft: "15px" }}
           >
-            Danh sách kết bạn
+            Danh sách bạn
           </span>
         </Row>
         <Row
