@@ -68,7 +68,12 @@ const FriendList = ({
     <FriendBox>
       <Img src={avatar} />
       <NameFriend>{name}</NameFriend>
-      <Button onClick={onAccept} className="actionBtn">
+      <Button
+        onClick={onAccept}
+        className={`${
+          actionLabel === "Kết bạn" ? "addFriendBtn" : "sendMessageBtn"
+        }`}
+      >
         {actionLabel}
       </Button>
     </FriendBox>
