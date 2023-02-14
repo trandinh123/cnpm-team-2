@@ -77,6 +77,7 @@ export default function Layout({ navigationContent, children }) {
             <IconButton
               icon={<AiFillSetting onClick={handleOpen} />}
               customStyle={{ padding: 0 }}
+              customClass="settingIcon"
             />
             <SettingModal
               settingModalOpen={settingModalOpen}
@@ -109,11 +110,13 @@ export default function Layout({ navigationContent, children }) {
                 <IconButton
                   icon={<AiOutlineUserAdd />}
                   onClick={openAddUserModal}
+                  customClass="addFrBtn"
                 />
                 <IconButton
                   icon={
                     <AiOutlineUsergroupAdd onClick={openCreateGroupModal} />
                   }
+                  customClass="addGroupBtn"
                 />
               </IconContext.Provider>
             </Col>

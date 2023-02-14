@@ -36,6 +36,7 @@ export function useModal({
           {secondaryAction.label}
         </Button>
         <Button
+          className="primaryButton"
           style={{ background: "#0068ff" }}
           variant="primary"
           onClick={() => {

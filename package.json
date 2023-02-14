@@ -1,0 +1,14 @@
+{
+  "name": "cnpm-team-2",
+  "version": "1.0.0",
+  "description": "Bài tập lớn môn công nghệ phần mềm K2N2 năm 2022",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^12.5.1"
+  }
+}

@@ -15,6 +15,7 @@ const SettingModal = ({
       <>
         <Setting>
           <Wrapper
+            className="userInfoBtn"
             onClick={() => {
               setAccInfOpen(true);
               setSettingModalOpen(false);
@@ -26,7 +27,7 @@ const SettingModal = ({
           <hr
             style={{ margin: "4px 16px 2px 16px", padding: 0, height: 0 }}
           ></hr>
-          <Wrapper>
+          <Wrapper className="logoutBtn">
             <Text style={{ color: "red", margin: "0 16px 0 21px" }}>
               Đăng xuất
             </Text>

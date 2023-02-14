@@ -8,7 +8,7 @@ export default function useAddUserModal() {
   const content = (
     <>
       <Container
-        class="container"
+        className="container addUser__container"
         style={{
           padding: "0px",
           display: "flex",
@@ -28,7 +28,7 @@ export default function useAddUserModal() {
         </p>
         <input
           type="text"
-          class="form"
+          class="form username__input"
           placeholder="Nhập email"
           aria-label="Username"
           value={email}

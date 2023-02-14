@@ -1,0 +1,13 @@
+{
+    "userEmail": "maianh2492002@gmail.com",
+
+    "userInfo": {
+        "name": "tester",
+        "gender": "Nữ"
+    }, 
+
+    "editUserInfo": {
+        "name": "developer",
+        "gender": "Nam"
+    }
+}
