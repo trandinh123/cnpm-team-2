@@ -35,7 +35,6 @@ const GroupList = () => {
   if (groupListLoading) {
     return <>Loading...</>;
   }
-  console.log(groupList);
   return (
     <Content>
       <ListBox>

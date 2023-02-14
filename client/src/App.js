@@ -15,6 +15,7 @@ import socket from "./services/socketIO";
 import { useEffect } from "react";
 import PrivateConversation from "./pages/PrivateConversation/PrivateConversation";
 import AccountGroup from "./components/AccountGroup/AccountGroup";
+import GroupConversation from "./components/GroupConversation/GroupConversation";
 
 function App() {
   const {
@@ -39,7 +40,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App" style={{ overflow: "hidden" }}>
       <UserContext.Provider
         value={{
           user: userAuth,
@@ -56,6 +57,11 @@ function App() {
               <Route
                 path="privateConversation/:friendId"
                 element={<PrivateConversation socket={socket} />}
+                exact
+              />
+              <Route
+                path="groupConversation/:groupId"
+                element={<GroupConversation socket={socket} />}
                 exact
               />
             </Route>

@@ -7,6 +7,7 @@ export default function useFetchApi({
   dependencies = [],
 }) {
   const [data, setData] = useState(defaultData);
+  const [success, setSuccess] = useState();
   const [loading, setLoading] = useState(false);
   const [fetched, setFetched] = useState(false);
 
@@ -17,8 +18,13 @@ export default function useFetchApi({
         const res = await fetch(url, {
           method,
           credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          cache: "no-cache",
         });
-        const { data } = await res.json();
+        const { data, success } = await res.json();
+        setSuccess(success);
         setData(data);
       } catch (err) {
         console.log(err.message);
@@ -30,12 +36,6 @@ export default function useFetchApi({
     [method, initialUrl]
   );
 
-  // useEffect(() => {
-  //   if (!fetched) {
-  //     fetchData();
-  //   }
-  // }, [fetchData, fetched]);
-
   useEffect(() => {
     fetchData();
   }, dependencies);
@@ -46,5 +46,6 @@ export default function useFetchApi({
     setLoading,
     fetched,
     refetch: fetchData,
+    success,
   };
 }

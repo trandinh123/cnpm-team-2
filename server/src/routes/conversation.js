@@ -11,6 +11,7 @@ router.get(
 );
 router.get("/:id", verifyAuthenticated, conversationController.get);
 router.post("/", verifyAuthenticated, conversationController.create);
+router.put("/:id", verifyAuthenticated, conversationController.update);
 router.get(
   "/privateConversation/:friendId",
   verifyAuthenticated,

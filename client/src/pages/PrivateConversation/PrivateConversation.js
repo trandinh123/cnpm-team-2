@@ -9,7 +9,7 @@ import { FiSend } from "react-icons/fi/";
 import IconButton from "../../components/IconButton/IconButton";
 import Message from "../../components/Message/Message";
 
-export default function Test({ socket }) {
+export default function PrivateConversation({ socket }) {
   const [newMessage, setNewMessage] = useState("");
   const { friendId } = useParams();
   const { user } = useContext(UserContext);
@@ -24,6 +24,7 @@ export default function Test({ socket }) {
     data: messages,
     setData: setMessages,
     loading: messageLoading,
+    success: messageSuccessLoading,
   } = useFetchApi({
     initialUrl: `${SERVER_URL}/message/all/?conversationId=${conversation?._id}`,
     defaultData: [],
@@ -42,7 +43,12 @@ export default function Test({ socket }) {
     bottomRef?.current?.scrollIntoView();
   }, [messages]);
 
-  if (conversationLoading || messageLoading || !friend) {
+  if (
+    conversationLoading ||
+    messageLoading ||
+    !friend ||
+    !messageSuccessLoading
+  ) {
     return <>Loading...</>;
   }
 

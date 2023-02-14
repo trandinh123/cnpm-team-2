@@ -9,7 +9,19 @@ const create = asyncWrapper(async (req, res) => {
 });
 const get = asyncWrapper(async (req, res) => {
   const id = mongoose.Types.ObjectId(req.params.id);
-  const conversation = await Conversation.findById(id);
+  const conversation = await Conversation.findById(id).populate(
+    "users",
+    "name picture _id"
+  );
+  return res.status(200).json({
+    success: true,
+    data: conversation,
+  });
+});
+
+const update = asyncWrapper(async (req, res) => {
+  const id = mongoose.Types.ObjectId(req.params.id);
+  const conversation = await Conversation.findByIdAndUpdate(id, req.body);
   return res.status(200).json({
     success: true,
     data: conversation,
@@ -27,12 +39,12 @@ const getPrivateConversation = asyncWrapper(async (req, res) => {
       isGroupChat: false,
       users: [req.user._id, friendId],
     });
-    return res.json({
+    return res.status(200).json({
       success: true,
       data: newConversation,
     });
   }
-  return res.json({
+  return res.status(200).json({
     success: true,
     data: conversation,
   });
@@ -57,6 +69,7 @@ const getAllGroupConversation = asyncWrapper(async (req, res) => {
 module.exports = {
   get,
   create,
+  update,
   getPrivateConversation,
   createGroupConversation,
   getAllGroupConversation,

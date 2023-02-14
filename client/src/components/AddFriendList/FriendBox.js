@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import avt from "../../img/anhbia.jpg";
 
 export const Text2 = styled.p`
   font-size: 14px;

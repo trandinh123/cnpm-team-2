@@ -74,7 +74,7 @@ io.use((socket, next) => {
 io.on("connection", (socket) => {
   socket.join(socket.user._id);
   socket.on("private message", async ({ content, to, conversation }) => {
-    socket.to(to).to(socket.user._id).emit("private message", {
+    socket.to(to).emit("private message", {
       content,
       from: socket.user,
       to,
@@ -86,5 +86,33 @@ io.on("connection", (socket) => {
       content,
       conversation,
     });
+  });
+  socket.on("join group", async ({ conversation }) => {
+    if (!conversation?._id) return;
+    socket.join(conversation._id);
+    console.log(socket?.user?.name, "join group", conversation.chatName);
+  });
+  socket.on("group message", async ({ conversation, content }) => {
+    console.log(
+      socket.user?.name,
+      "***send message***",
+      conversation?.chatName
+    );
+    socket.to(conversation._id).emit("group message", {
+      content,
+      from: socket.user,
+      conversation,
+    });
+    await Message.create({
+      sender: socket.user._id,
+      readBy: conversation?.users,
+      content,
+      conversation,
+    });
+  });
+  socket.on("leave group", ({ conversation }) => {
+    if (!conversation?._id) return;
+    console.log(socket?.user?.name, "leave group", conversation?.chatName);
+    socket.leave(conversation?._id);
   });
 });

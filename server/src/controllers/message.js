@@ -18,10 +18,10 @@ const get = asyncWrapper(async (req, res) => {
 
 const getAllByConversationId = asyncWrapper(async (req, res) => {
   if (req.query.conversationId === "undefined") {
-    return {
+    return res.status(200).json({
       success: false,
       data: [],
-    };
+    });
   }
   const conversationId = mongoose.Types.ObjectId(req.query.conversationId);
   const messages = await Message.find({
