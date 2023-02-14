@@ -13,6 +13,7 @@ import { AiFillSetting } from "react-icons/ai";
 import { useModal } from "../../hooks/useModal";
 import Form from "react-bootstrap/Form";
 import Select from "react-select";
+import LoadingPage from "../LoadingPage/LoadingPage";
 
 export default function GroupConversation({ socket }) {
   const [newMessage, setNewMessage] = useState("");
@@ -199,7 +200,7 @@ export default function GroupConversation({ socket }) {
   });
 
   if (conversationLoading || messageLoading || !friend) {
-    return <>Loading...</>;
+    return <LoadingPage />;
   }
 
   const groupMessage = (messages) => {

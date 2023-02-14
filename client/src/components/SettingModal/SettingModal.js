@@ -2,6 +2,7 @@ import React from "react";
 import { Setting, Wrapper, Text } from "./settingModalStyle";
 import { useState } from "react";
 import AccountInfor from "../AccountInfor/AccountInfor";
+import { SERVER_URL } from "../../config";
 
 const SettingModal = ({
   settingModalOpen,
@@ -26,7 +27,15 @@ const SettingModal = ({
           <hr
             style={{ margin: "4px 16px 2px 16px", padding: 0, height: 0 }}
           ></hr>
-          <Wrapper>
+          <Wrapper
+            onClick={async () => {
+              await fetch(`${SERVER_URL}/auth/google/logout`, {
+                method: "GET",
+                credentials: "include",
+              });
+              window.location.reload(false);
+            }}
+          >
             <Text style={{ color: "red", margin: "0 16px 0 21px" }}>
               Đăng xuất
             </Text>

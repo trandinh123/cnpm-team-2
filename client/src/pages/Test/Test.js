@@ -8,6 +8,7 @@ import { SERVER_URL } from "../../config";
 import { FiSend } from "react-icons/fi/";
 import IconButton from "../../components/IconButton/IconButton";
 import Message from "../../components/Message/Message";
+import LoadingPage from "../../components/LoadingPage/LoadingPage";
 
 export default function Test({ socket }) {
   const [newMessage, setNewMessage] = useState("");
@@ -43,7 +44,7 @@ export default function Test({ socket }) {
   }, [messages]);
 
   if (conversationLoading || messageLoading || !friend) {
-    return <>Loading...</>;
+    return <LoadingPage />;
   }
 
   const groupMessage = (messages) => {

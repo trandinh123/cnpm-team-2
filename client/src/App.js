@@ -16,6 +16,8 @@ import { useEffect } from "react";
 import PrivateConversation from "./pages/PrivateConversation/PrivateConversation";
 import AccountGroup from "./components/AccountGroup/AccountGroup";
 import GroupConversation from "./components/GroupConversation/GroupConversation";
+import Login from "./pages/Login/Login";
+import LoadingPage from "./components/LoadingPage/LoadingPage";
 
 function App() {
   const {
@@ -36,7 +38,7 @@ function App() {
   }, [userAuth]);
 
   if (!fetched) {
-    return <>Loading...</>;
+    return <LoadingPage />;
   }
 
   return (
@@ -51,7 +53,17 @@ function App() {
       >
         <Router>
           <Routes>
-            <Route path="/contact" exact element={<Contact />}>
+            <Route path="/login" exact element={<Login />} />
+            <Route
+              path="/contact"
+              exact
+              element={
+                <ProtectedRoute
+                  isAllowed={!!userAuth}
+                  component={<Contact />}
+                />
+              }
+            >
               <Route path="friendInvitations" element={<AddFriendList />} />
               <Route path="groupInvitations" element={<AccountGroup />} />
               <Route

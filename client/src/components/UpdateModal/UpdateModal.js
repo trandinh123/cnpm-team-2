@@ -291,7 +291,7 @@ const UpdateModal = ({ openModal, setOpenModal, setAccInfOpen }) => {
           )}
           {userLoading && (
             <div class="spinner-border text-primary" role="status">
-              <span class="sr-only">Loading...</span>
+              <span class="sr-only"></span>
             </div>
           )}
         </animated.div>
