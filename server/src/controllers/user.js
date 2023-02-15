@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Conversation = require("../models/Conversation");
 const asyncWrapper = require("../utils/asyncWrapper");
 const mongoose = require("mongoose");
 const pickFields = require("../utils/pickFields");
@@ -47,7 +48,11 @@ const addFriend = asyncWrapper(async (req, res) => {
 
 const acceptFriend = asyncWrapper(async (req, res) => {
   const friendId = mongoose.Types.ObjectId(req.params.friendId);
-  await Promise.all([
+  const conversation = await Conversation.findOne({
+    isGroupChat: false,
+    users: { $all: [req.user._id, friendId] },
+  });
+  const jobs = [
     User.findByIdAndUpdate(friendId, {
       $addToSet: { friends: req.user._id },
     }),
@@ -60,7 +65,17 @@ const acceptFriend = asyncWrapper(async (req, res) => {
     User.findByIdAndUpdate(req.user._id, {
       $pull: { friendRequestReceived: friendId },
     }),
-  ]);
+  ];
+  if (!conversation) {
+    jobs.push(
+      Conversation.create({
+        isGroupChat: false,
+        chatName: "",
+        users: [friendId, req.user._id],
+      })
+    );
+  }
+  await Promise.all(jobs);
   return res.json({
     success: true,
   });

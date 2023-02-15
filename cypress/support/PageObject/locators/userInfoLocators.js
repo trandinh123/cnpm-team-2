@@ -1,4 +1,4 @@
-class webLocator {
+class userInfoLocator {
     addFrBtn = '.addFrBtn'
 
     // Add friends screen
@@ -22,5 +22,5 @@ class webLocator {
     
 }
 
-const webPO = new webLocator()
-export default webPO
+const userInfoPO = new userInfoLocator()
+export default userInfoPO

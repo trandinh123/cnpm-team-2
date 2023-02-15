@@ -1,14 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Container from "react-bootstrap/Container";
 import { useModal } from "../../hooks/useModal";
 import { UserContext } from "./../../context/UserContext";
 import Row from "react-bootstrap/Container";
 import Avatar from "../Avatar/Avatar";
 import Form from "react-bootstrap/Form";
+import { SERVER_URL } from "../../config";
 
 export default function useCreateGroupModal() {
   const { user } = useContext(UserContext);
-  console.log(user?.friends);
+  const [groupName, setGroupName] = useState("");
+  const [groupUser, setGroupUser] = useState([]);
+
   const content = (
     <>
       <Container
@@ -23,7 +26,7 @@ export default function useCreateGroupModal() {
           type="text"
           class="form"
           placeholder="Nhập tên nhóm"
-          aria-label="Username"
+          aria-label="groupName"
           style={{
             backgroundColor: "white",
             border: "none",
@@ -36,6 +39,8 @@ export default function useCreateGroupModal() {
             width: "487px",
             height: "32px",
           }}
+          value={groupName}
+          onChange={(e) => setGroupName(e.target.value)}
         ></input>
       </Container>
       <Container
@@ -56,7 +61,7 @@ export default function useCreateGroupModal() {
           }}
         >
           <input
-            class="form-control"
+            class="form-control groupNameInput"
             style={{
               backgroundColor: "white",
               border: "1px solid #d6dbe1",
@@ -78,12 +83,23 @@ export default function useCreateGroupModal() {
       <Container>
         {user?.friends?.map((user) => (
           <Row
-            className="d-flex align-items-center flex-nowrap"
+            className="d-flex align-items-center flex-nowrap userCheckbox"
             role="button"
             style={{ padding: "12px 0", columnGap: "20px" }}
             key={user?._id}
           >
-            <Form.Check type="radio" />
+            <Form.Check
+              type="checkbox"
+              value={user?._id}
+              onClick={(e) => {
+                if (e.target.checked) {
+                  return setGroupUser((prev) => {
+                    return [...new Set([...prev, user?._id])];
+                  });
+                }
+                setGroupUser((prev) => prev.filter((id) => id !== user?._id));
+              }}
+            />
             <>
               <Avatar src={user.picture} width="40px" height="40px" />
               <span
@@ -111,7 +127,21 @@ export default function useCreateGroupModal() {
     primaryAction: {
       label: "Tạo nhóm",
       action: async () => {
-        
+        setGroupName("");
+        setGroupUser([]);
+        await fetch(`${SERVER_URL}/conversation/`, {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            chatName: groupName,
+            isGroupChat: true,
+            users: [...groupUser, user._id],
+            groupAdmin: user._id,
+          }),
+        });
       },
     },
     secondaryAction: {

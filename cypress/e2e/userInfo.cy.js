@@ -1,14 +1,15 @@
-import webPagePO from "../support/web"
-import web from "../fixtures/web.json"
-import webPO from "../support/PageObject/locators/webLocators"
+import userInfoPagePO from "../support/userInfo"
+import userInfo from "../fixtures/userInfo.json"
+import userInfoPO from "../support/PageObject/locators/userInfoLocators"
 describe("App Testing", () => {
     beforeEach("Login", () => {
         cy.visit("http://localhost:3000/account")
+        cy.wait(1000)
     })
 
     it("Add friends positive", () => {
         // Add friends 
-        webPagePO.addFriends();
+        userInfoPagePO.addFriends();
 
         // Validate add friends successfull
 
@@ -17,25 +18,25 @@ describe("App Testing", () => {
 
     it("Edit User Info", () => {
         // Open edit screen
-        webPagePO.openSettingScreen();
+        userInfoPagePO.openSettingScreen();
 
         // Edit Infomation
-        webPagePO.editUserInfo("editUserInfo");
+        userInfoPagePO.editUserInfo("editUserInfo");
 
         // Validate edit info successfull
         cy.reload()
-        webPagePO.validateEditInfoSuccessfull("editUserInfo")
+        userInfoPagePO.validateEditInfoSuccessfull("editUserInfo")
     })
 
     it("Cancel edit User Info", () => {
         // Open edit screen
-        webPagePO.openSettingScreen();
+        userInfoPagePO.openSettingScreen();
 
         // Cancel dit Infomation
-        cy.get(webPO.cancelBtn).click()
+        cy.get(userInfoPO.cancelBtn).click()
 
         // Validate cancel edit info successfull
-        webPagePO.validateEditInfoSuccessfull("editUserInfo")
+        userInfoPagePO.validateEditInfoSuccessfull("editUserInfo")
     })
 
 })

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   LayoutContainer,
   PageNavigation,
@@ -28,6 +28,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAddUserModal from "../useAddUserModal/useAddUserModal";
 import useCreateGroupModal from "./../CreateGroupModal/useCreateGroupModal";
+import { UserContext } from "./../../context/UserContext";
 
 export default function Layout({ navigationContent, children }) {
   const [settingModalOpen, setSettingModalOpen] = useState(false);
@@ -40,6 +41,7 @@ export default function Layout({ navigationContent, children }) {
   const { addUserModal, openAddUserModal } = useAddUserModal();
   const { createGroupModal, openCreateGroupModal } = useCreateGroupModal();
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
   return (
     <LayoutContainer>
       <PageNavigation
@@ -55,7 +57,7 @@ export default function Layout({ navigationContent, children }) {
             <Image
               roundedCircle
               fluid
-              src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+              src={user?.picture}
               style={{ cursor: "pointer", width: "48px", height: "48px" }}
             />
             <IconButton

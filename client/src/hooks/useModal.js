@@ -8,10 +8,12 @@ export function useModal({
   secondaryAction = {
     label: "Cancel",
     action: () => {},
+    hidden: false,
   },
   primaryAction = {
     label: "Save",
     action: () => {},
+    hidden: false,
   },
 }) {
   const [show, setShow] = useState(false);
@@ -25,27 +27,31 @@ export function useModal({
       </Modal.Header>
       <Modal.Body>{content}</Modal.Body>
       <Modal.Footer>
-        <Button
-          className="cancelbtn"
-          variant="secondary"
-          onClick={() => {
-            handleClose();
-            secondaryAction.action();
-          }}
-        >
-          {secondaryAction.label}
-        </Button>
-        <Button
-          className="primaryButton"
-          style={{ background: "#0068ff" }}
-          variant="primary"
-          onClick={() => {
-            handleClose();
-            primaryAction.action();
-          }}
-        >
-          {primaryAction.label}
-        </Button>
+        {!secondaryAction.hidden && (
+          <Button
+            className="cancelbtn"
+            variant="secondary"
+            onClick={() => {
+              handleClose();
+              secondaryAction.action();
+            }}
+          >
+            {secondaryAction.label}
+          </Button>
+        )}
+        {!primaryAction.hidden && (
+          <Button 
+            className="primaryButton"
+            style={{ background: "#0068ff" } }
+            variant="primary"
+            onClick={() => {
+              handleClose();
+              primaryAction.action();
+            }}
+          >
+            {primaryAction.label}
+          </Button>
+        )}
       </Modal.Footer>
     </Modal>
   );

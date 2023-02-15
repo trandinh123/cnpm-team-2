@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { IoIosPeople } from "react-icons/io";
 
 export const Text2 = styled.p`
   font-size: 14px;
@@ -47,13 +48,7 @@ export const Button = styled.button`
   }
 `;
 
-const FriendList = ({
-  avatar = "",
-  name = "",
-  onAccept = () => {},
-  loading = false,
-  actionLabel = "Kết bạn",
-}) => {
+const GroupInfoBox = ({ name = "", onAccept = () => {}, loading = false }) => {
   if (loading) {
     return (
       <FriendBox>
@@ -65,18 +60,13 @@ const FriendList = ({
   }
   return (
     <FriendBox>
-      <Img src={avatar} />
+      <IoIosPeople size="96px" />
       <NameFriend>{name}</NameFriend>
-      <Button
-        onClick={onAccept}
-        className={`${
-          actionLabel === "Kết bạn" ? "addFriendBtn" : "sendMessageBtn"
-        }`}
-      >
-        {actionLabel}
+      <Button onClick={onAccept} className="actionBtn">
+        Nhắn tin
       </Button>
     </FriendBox>
   );
 };
 
-export default FriendList;
+export default GroupInfoBox;

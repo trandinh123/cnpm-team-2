@@ -30,7 +30,7 @@ export default function ContactNavigation() {
           <span
             style={{ fontSize: "16px", color: "#081C36", paddingLeft: "15px" }}
           >
-            Danh sách kết bạn
+            Danh sách bạn
           </span>
         </Row>
         <Row
@@ -61,6 +61,9 @@ export default function ContactNavigation() {
             role="button"
             style={{ padding: "12px 0" }}
             key={user?._id}
+            onClick={() => {
+              navigate(`/contact/privateConversation/${user._id}`);
+            }}
           >
             <Avatar src={user.picture} />
             <span

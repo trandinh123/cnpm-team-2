@@ -11,6 +11,11 @@ import Test from "./pages/Test/Test";
 import { UserContext } from "./context/UserContext";
 import Contact from "./pages/Contact/Contact";
 import AddFriendList from "./components/AddFriendList/AddFriendList";
+import socket from "./services/socketIO";
+import { useEffect } from "react";
+import PrivateConversation from "./pages/PrivateConversation/PrivateConversation";
+import AccountGroup from "./components/AccountGroup/AccountGroup";
+import GroupConversation from "./components/GroupConversation/GroupConversation";
 
 function App() {
   const {
@@ -23,12 +28,19 @@ function App() {
     initialUrl: `${SERVER_URL}/user`,
   });
 
+  useEffect(() => {
+    if (userAuth) {
+      socket.auth = { user: userAuth };
+      socket.connect();
+    }
+  }, [userAuth]);
+
   if (!fetched) {
     return <>Loading...</>;
   }
 
   return (
-    <div className="App">
+    <div className="App" style={{ overflow: "hidden" }}>
       <UserContext.Provider
         value={{
           user: userAuth,
@@ -41,7 +53,17 @@ function App() {
           <Routes>
             <Route path="/contact" exact element={<Contact />}>
               <Route path="friendInvitations" element={<AddFriendList />} />
-              <Route path="groupInvitations" element={<>group list</>} />
+              <Route path="groupInvitations" element={<AccountGroup />} />
+              <Route
+                path="privateConversation/:friendId"
+                element={<PrivateConversation socket={socket} />}
+                exact
+              />
+              <Route
+                path="groupConversation/:groupId"
+                element={<GroupConversation socket={socket} />}
+                exact
+              />
             </Route>
             <Route path="/account" exact element={<Account />} />
             <Route path="/test" exact element={<Test />} />

@@ -1,10 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import addFriend from "../../img/addperson.png";
 import styled from "styled-components";
-import NoFriendRequest from "./NoFriendRequest";
-import FriendSuggestion from "./FriendSuggestion";
-import FriendRequest from "./FriendRequest";
-import ListFriends from "./ListFriends";
+import GroupList from "./GroupList";
 
 export const Wrapper = styled.div`
   background-color: #fff;
@@ -32,26 +29,16 @@ export const Text = styled.h1`
   font-weight: 600;
 `;
 
-const AddFriendList = ({ children }) => {
+const AccountGroup = ({ children }) => {
   return (
     <Wrapper>
       <Title>
         <Img src={addFriend} style={{}} />
-        <Text>Danh sách bạn</Text>
+        <Text>Danh sách nhóm</Text>
       </Title>
-      <div
-        style={{
-          overflowY: "scroll",
-          height: "100%",
-          display: "flex",
-          flexFlow: "column",
-        }}
-      >
-        <ListFriends />
-        <FriendRequest />
-      </div>
+      <GroupList />
     </Wrapper>
   );
 };
 
-export default AddFriendList;
+export default AccountGroup;

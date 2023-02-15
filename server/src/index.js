@@ -12,6 +12,8 @@ const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 const conversationRouter = require("./routes/conversation");
 const messageRouter = require("./routes/message");
+const Message = require("./models/Message");
+const Conversation = require("./models/Conversation");
 
 const app = express();
 const server = http.createServer(app);
@@ -57,5 +59,60 @@ mongoose.connect(process.env.MONGODB_URI, (err) => {
 });
 
 const io = new Server(server, {
-  cors: process.env.SERVER_URL || "http://localhost:5000",
+  cors: process.env.CLIENT_URL || "http://localhost:3000",
+});
+
+io.use((socket, next) => {
+  const { user } = socket.handshake.auth;
+  if (!user) {
+    return next(new Error("invalid username"));
+  }
+  socket.user = user;
+  next();
+});
+
+io.on("connection", (socket) => {
+  socket.join(socket.user._id);
+  socket.on("private message", async ({ content, to, conversation }) => {
+    socket.to(to).emit("private message", {
+      content,
+      from: socket.user,
+      to,
+      conversation,
+    });
+    await Message.create({
+      sender: socket.user._id,
+      readBy: to,
+      content,
+      conversation,
+    });
+  });
+  socket.on("join group", async ({ conversation }) => {
+    if (!conversation?._id) return;
+    socket.join(conversation._id);
+    console.log(socket?.user?.name, "join group", conversation.chatName);
+  });
+  socket.on("group message", async ({ conversation, content }) => {
+    console.log(
+      socket.user?.name,
+      "***send message***",
+      conversation?.chatName
+    );
+    socket.to(conversation._id).emit("group message", {
+      content,
+      from: socket.user,
+      conversation,
+    });
+    await Message.create({
+      sender: socket.user._id,
+      readBy: conversation?.users,
+      content,
+      conversation,
+    });
+  });
+  socket.on("leave group", ({ conversation }) => {
+    if (!conversation?._id) return;
+    console.log(socket?.user?.name, "leave group", conversation?.chatName);
+    socket.leave(conversation?._id);
+  });
 });
