@@ -76,6 +76,7 @@ export default function GroupConversation({ socket }) {
       <Form.Group className="mb-3">
         <Form.Label>Tên nhóm</Form.Label>
         <Form.Control
+          className="chatNameInput"
           placeholder=""
           value={settingForm?.chatName}
           onChange={(e) =>

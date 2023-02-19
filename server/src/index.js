@@ -20,7 +20,11 @@ const server = http.createServer(app);
 app.use(express.json());
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5000",
+    origin: [
+      process.env.CLIENT_URL,
+      "http://localhost:5000",
+      "http://localhost:3000",
+    ],
     credentials: true,
   })
 );
@@ -73,6 +77,24 @@ io.use((socket, next) => {
 
 io.on("connection", (socket) => {
   socket.join(socket.user._id);
+  socket.on("calling", ({ fid }) => {
+    console.log("calling", fid);
+    socket.to(fid).emit("receive call", {
+      user: socket.user,
+    });
+  });
+  socket.on("cancel call", ({ fid }) => {
+    console.log("cancel calling...");
+    socket.to(fid).emit("cancel call", {
+      user: socket.user,
+    });
+  });
+  socket.on("answer call", ({ fid }) => {
+    socket.to(fid).emit("get a call", {
+      fid: socket.user._id,
+      name: socket.user.name,
+    });
+  });
   socket.on("private message", async ({ content, to, conversation }) => {
     socket.to(to).emit("private message", {
       content,
