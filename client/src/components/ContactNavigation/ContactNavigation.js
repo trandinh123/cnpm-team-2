@@ -34,7 +34,7 @@ export default function ContactNavigation() {
           </span>
         </Row>
         <Row
-          className="d-flex align-items-center flex-nowrap"
+          className="d-flex align-items-center flex-nowrap groupIconBtn"
           role="button"
           style={{ padding: "12px 0" }}
           onClick={() => navigate("groupInvitations")}
@@ -53,7 +53,7 @@ export default function ContactNavigation() {
           </span>
         </Row>
       </Container>
-      <Container className="p-0">
+      <Container className="p-0 friendListContainer">
         <Row>Bạn bè({user?.friends?.length})</Row>
         {user?.friends?.map((user) => (
           <Row

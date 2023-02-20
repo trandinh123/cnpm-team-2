@@ -19,10 +19,10 @@ const formatMessageDate = (date = new Date()) => {
   }
   return date.toLocaleTimeString();
 };
-export default function Message({ listMessage, isSenderMessage = false }) {
+export default function Message({ listMessage, isSenderMessage = false, lastMessage = false }) {
   return (
     <Container
-      class="d-flex "
+      className={`d-flex  ${lastMessage ? 'lastestMessage' : ''}`}
       style={{
         display: "flex",
         flexDirection: "row",
@@ -45,7 +45,7 @@ export default function Message({ listMessage, isSenderMessage = false }) {
       >
         {listMessage.map((message) => (
           <p
-            class="small p-2 ms-3 mb-1 rounded-3"
+            class="small p-2 ms-3 mb-1 rounded-3 message"
             style={{
               backgroundColor: isSenderMessage ? "#0d6efd" : "#f5f6f7",
               color: isSenderMessage ? "white" : "black",

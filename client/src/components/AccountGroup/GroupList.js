@@ -37,7 +37,7 @@ const GroupList = () => {
   }
   return (
     <Content>
-      <ListBox>
+      <ListBox className="listGroupContainer">
         <Text>Tất cả({groupList?.length})</Text>
         {groupList?.map((group) => (
           <GroupInfoBox

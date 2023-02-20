@@ -163,9 +163,10 @@ export default function PrivateConversation({ socket }) {
             flex: "1 1 auto",
           }}
         >
-          {groupMessage(messages).map((listMessage) => (
+          {groupMessage(messages).map((listMessage, index) => (
             <Message
               listMessage={listMessage}
+              lastMessage={index === messages.length}
               isSenderMessage={listMessage[0].sender._id === user._id}
             />
           ))}

@@ -62,6 +62,7 @@ export default function Layout({ navigationContent, children }) {
             />
             <IconButton
               icon={<RiContactsBookLine />}
+              customClass="contactIcon"
               onClick={() => {
                 return navigate("/contact");
               }}
