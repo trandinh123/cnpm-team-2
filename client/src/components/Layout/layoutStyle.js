@@ -7,11 +7,12 @@ export const LayoutContainer = styled.div`
 `;
 
 export const PageNavigation = styled.div`
-  width: 5%;
+  width: 64px;
   background: #0091ff;
 `;
 export const ContactNavigation = styled.div`
   width: 23%;
+  border-right: 1px solid var(--border);
 `;
 
 export const MainContent = styled.div`

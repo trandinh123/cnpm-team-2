@@ -1,6 +1,8 @@
 const Message = require("../models/Message");
 const asyncWrapper = require("../utils/asyncWrapper");
 const mongoose = require("mongoose");
+const Conversation = require("../models/Conversation");
+const User = require("../models/User");
 
 const create = asyncWrapper(async (req, res) => {
   const newMessage = await Message.create(req.body);
@@ -36,8 +38,41 @@ const getAllByConversationId = asyncWrapper(async (req, res) => {
   });
 });
 
+const getLatestMessage = asyncWrapper(async (req, res) => {
+  const conversations = await Conversation.find({
+    users: req.user._id,
+    latestMessage: {
+      $ne: null,
+    },
+  })
+    .populate({
+      path: "latestMessage",
+      select: "content sender createdAt updatedAt",
+      populate: {
+        path: "sender",
+        model: "User",
+      },
+    })
+    .populate({
+      path: "users",
+      match: {
+        _id: {
+          $ne: req.user._id,
+        },
+      },
+      select: "name picture",
+    });
+  await User.findByIdAndUpdate(req.user._id, {
+    lastActiveAt: new Date(),
+  });
+  return res.json({
+    success: true,
+    data: conversations,
+  });
+});
 module.exports = {
   get,
   create,
   getAllByConversationId,
+  getLatestMessage,
 };

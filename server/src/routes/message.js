@@ -9,6 +9,7 @@ router.get(
   verifyAuthenticated,
   messageController.getAllByConversationId
 );
+router.get("/getLatestMessage", verifyAuthenticated, messageController.getLatestMessage)
 router.post("/", messageController.create);
 
 module.exports = router;
