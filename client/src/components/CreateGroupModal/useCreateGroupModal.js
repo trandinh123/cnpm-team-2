@@ -54,7 +54,7 @@ export default function useCreateGroupModal() {
         <p style={{ padding: "0", marginBottom: "0px", fontSize: "12px" }}>
           Thêm bạn vào nhóm
         </p>
-        <Container
+        {/* <Container
           class="container"
           style={{
             padding: "0px",
@@ -78,7 +78,7 @@ export default function useCreateGroupModal() {
             placeholder="Nhập tên, gmai hoặc danh sách gmail"
             aria-label="Search"
           ></input>
-        </Container>
+        </Container> */}
       </Container>
       <Container>
         {user?.friends?.map((user) => (
