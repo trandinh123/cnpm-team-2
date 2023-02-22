@@ -116,6 +116,7 @@ io.on("connection", (socket) => {
       to,
       conversation,
     });
+    socket.to(to).emit("get new message");
   });
   socket.on("join group", async ({ conversation }) => {
     if (!conversation?._id) return;
@@ -146,6 +147,7 @@ io.on("connection", (socket) => {
       from: socket.user,
       conversation,
     });
+    socket.to(conversation._id).emit("get new message");
   });
   socket.on("leave group", ({ conversation }) => {
     if (!conversation?._id) return;

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Avatar from "../Avatar/Avatar";
 import Row from "react-bootstrap/Row";
@@ -8,11 +8,19 @@ import { IoIosPeople } from "react-icons/io";
 import PeopleIcon from "../../resources/icons/People.svg";
 import { UserContext } from "./../../context/UserContext";
 
-export default function MessageNavigation() {
-  const { data: latestMessages } = useFetchApi({
+export default function MessageNavigation({ socket }) {
+  const { data: latestMessages, refetch: refetchLatestMessage } = useFetchApi({
     initialUrl: `${SERVER_URL}/message/getLatestMessage`,
   });
   const { user } = useContext(UserContext);
+  useEffect(() => {
+    socket.on("get new message", () => {
+      console.log("get new message");
+      refetchLatestMessage();
+    });
+    return () => socket.off("get new message");
+  }, [socket]);
+
   return (
     <Container>
       {latestMessages?.map((message) => {
@@ -27,13 +35,13 @@ export default function MessageNavigation() {
                 message.isGroupChat
                   ? "groupConversation"
                   : "privateConversation"
-              }/${message.isGroupChat ? message._id : message.users[0]._id}`;
+              }/${message.isGroupChat ? message?._id : message?.users[0]?._id}`;
             }}
           >
             {message.isGroupChat ? (
               <Avatar src={PeopleIcon} />
             ) : (
-              <Avatar src={message.users[0].picture} />
+              <Avatar src={message?.users[0]?.picture} />
             )}
             <Container
               className="d-flex flex-column justify-content-around"
@@ -47,7 +55,9 @@ export default function MessageNavigation() {
                   fontWeight: 500,
                 }}
               >
-                {message.isGroupChat ? message.chatName : message.users[0].name}
+                {message.isGroupChat
+                  ? message.chatName
+                  : message?.users[0]?.name}
               </p>
               <p style={{ color: "#7589A3", fontSize: "12px", margin: 0 }}>
                 {message?.latestMessage?.sender?._id === user._id
