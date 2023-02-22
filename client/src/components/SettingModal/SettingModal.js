@@ -2,6 +2,7 @@ import React from "react";
 import { Setting, Wrapper, Text } from "./settingModalStyle";
 import { useState } from "react";
 import AccountInfor from "../AccountInfor/AccountInfor";
+import { SERVER_URL } from "../../config";
 
 const SettingModal = ({
   settingModalOpen,

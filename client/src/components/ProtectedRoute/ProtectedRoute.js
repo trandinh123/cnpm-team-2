@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 
 export default function ProtectedRoute({
   isAllowed = false,
-  redirectPath = "/account",
+  redirectPath = "/login",
   component,
 }) {
   if (!isAllowed) {

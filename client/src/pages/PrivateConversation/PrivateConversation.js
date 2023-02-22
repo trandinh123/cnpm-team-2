@@ -8,6 +8,9 @@ import { SERVER_URL } from "../../config";
 import { FiSend } from "react-icons/fi/";
 import IconButton from "../../components/IconButton/IconButton";
 import Message from "../../components/Message/Message";
+import LoadingPage from "../../components/LoadingPage/LoadingPage";
+import { IoIosCall } from "react-icons/io";
+import { CLIENT_URL } from "../../config";
 
 export default function PrivateConversation({ socket }) {
   const [newMessage, setNewMessage] = useState("");
@@ -49,7 +52,7 @@ export default function PrivateConversation({ socket }) {
     !friend ||
     !messageSuccessLoading
   ) {
-    return <>Loading...</>;
+    return <LoadingPage />;
   }
 
   const groupMessage = (messages) => {
@@ -112,6 +115,7 @@ export default function PrivateConversation({ socket }) {
           flexDirection: "row",
           padding: 0,
           margin: 0,
+          flexWrap: "nowrap",
         }}
       >
         <img
@@ -140,6 +144,19 @@ export default function PrivateConversation({ socket }) {
         >
           {friend.name}
         </p>
+        <IconButton
+          icon={<IoIosCall size="30px" />}
+          customClass="privateCall"
+          onClick={() => {
+            window.open(
+              `${CLIENT_URL}/privateCall?fid=${friend._id}&img=${friend.picture}`,
+              "_blank"
+            );
+            socket.emit("calling", {
+              fid: friend._id,
+            });
+          }}
+        />
       </Row>
       <Container
         style={{

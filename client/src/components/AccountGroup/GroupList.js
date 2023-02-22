@@ -5,6 +5,7 @@ import { SERVER_URL } from "../../config";
 import useFetchApi from "./../../hooks/useFetchApi";
 import GroupInfoBox from "./GroupInfoBox";
 import { useNavigate } from "react-router-dom";
+import LoadingPage from "../LoadingPage/LoadingPage";
 
 export const Content = styled.div`
   background-color: var(--surface-background-subtle);
@@ -33,7 +34,7 @@ const GroupList = () => {
   });
 
   if (groupListLoading) {
-    return <>Loading...</>;
+    return <LoadingPage />;
   }
   return (
     <Content>
