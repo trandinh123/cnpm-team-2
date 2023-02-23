@@ -141,7 +141,7 @@ function App() {
               exact
               element={
                 <ProtectedRoute
-                  isAllowed={!!userAuth}
+                  isAllowed={true}
                   component={<Contact />}
                 />
               }
@@ -169,7 +169,7 @@ function App() {
               path="/"
               exact
               element={
-                <ProtectedRoute isAllowed={!!userAuth} component={<Home />} />
+                <ProtectedRoute isAllowed={true} component={<Home />} />
               }
             />
           </Routes>
