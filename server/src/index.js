@@ -14,6 +14,7 @@ const conversationRouter = require("./routes/conversation");
 const messageRouter = require("./routes/message");
 const Message = require("./models/Message");
 const Conversation = require("./models/Conversation");
+const User = require("./models/User");
 
 const app = express();
 const server = http.createServer(app);
@@ -96,18 +97,26 @@ io.on("connection", (socket) => {
     });
   });
   socket.on("private message", async ({ content, to, conversation }) => {
+    const newMessage = await Message.create({
+      sender: socket.user._id,
+      readBy: to,
+      content,
+      conversation,
+    });
+    const updateConversation = await Conversation.findByIdAndUpdate(
+      conversation._id,
+      {
+        latestMessage: newMessage,
+      }
+    );
+    console.log("***update conversation***", updateConversation);
     socket.to(to).emit("private message", {
       content,
       from: socket.user,
       to,
       conversation,
     });
-    await Message.create({
-      sender: socket.user._id,
-      readBy: to,
-      content,
-      conversation,
-    });
+    socket.to(to).emit("get new message");
   });
   socket.on("join group", async ({ conversation }) => {
     if (!conversation?._id) return;
@@ -120,17 +129,25 @@ io.on("connection", (socket) => {
       "***send message***",
       conversation?.chatName
     );
-    socket.to(conversation._id).emit("group message", {
-      content,
-      from: socket.user,
-      conversation,
-    });
-    await Message.create({
+    const newMessage = await Message.create({
       sender: socket.user._id,
       readBy: conversation?.users,
       content,
       conversation,
     });
+    const updateConversation = await Conversation.findByIdAndUpdate(
+      conversation._id,
+      {
+        latestMessage: newMessage,
+      }
+    );
+    console.log("***update conversation***", updateConversation);
+    socket.to(conversation._id).emit("group message", {
+      content,
+      from: socket.user,
+      conversation,
+    });
+    socket.to(conversation._id).emit("get new message");
   });
   socket.on("leave group", ({ conversation }) => {
     if (!conversation?._id) return;

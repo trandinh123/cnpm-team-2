@@ -47,7 +47,7 @@ export default function Message({ listMessage, isSenderMessage = false, lastMess
           <p
             class="small p-2 ms-3 mb-1 rounded-3 message"
             style={{
-              backgroundColor: isSenderMessage ? "#0d6efd" : "#f5f6f7",
+              backgroundColor: isSenderMessage ? "#0d6efd" : "white",
               color: isSenderMessage ? "white" : "black",
               width: "fit-content",
               maxWidth: "60%",

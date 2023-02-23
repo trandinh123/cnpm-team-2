@@ -42,6 +42,9 @@ const UserSchema = new Schema({
     type: String,
     default: "+0000000000",
   },
+  lastActiveAt: {
+    type: Date,
+  },
 });
 
 module.exports = mongoose.model("User", UserSchema);

@@ -21,6 +21,7 @@ import LoadingPage from "./components/LoadingPage/LoadingPage";
 import PrivateCall from "./pages/PrivateCall/PrivateCall";
 import { CLIENT_URL } from "./config";
 import Button from "react-bootstrap/Button";
+import Message from "./pages/Message/Message";
 
 function App() {
   const {
@@ -65,7 +66,6 @@ function App() {
     };
   }, [socket]);
 
-  useEffect(() => {}, []);
   if (!fetched) {
     return <LoadingPage />;
   }
@@ -160,6 +160,11 @@ function App() {
               />
             </Route>
             <Route path="/account" exact element={<Account />} />
+            <Route
+              path="/message"
+              exact
+              element={<Message socket={socket} />}
+            />
             <Route
               path="/privateCall"
               exact

@@ -34,10 +34,10 @@ const CallScreen = ({ img }) => {
   return (
     <Background>
       <Image src={img} />
-      <Button>
-        <I className="fa-solid fa-microphone" style={{ color: "#fff" }}></I>
-        <I className="fa-solid fa-phone" style={{ color: "red" }}></I>
-      </Button>
+      {/* <Button> */}
+      {/* <I className="fa-solid fa-microphone" style={{ color: "#fff" }}></I>
+        <I className="fa-solid fa-phone" style={{ color: "red" }}></I> */}
+      {/* </Button> */}
     </Background>
   );
 };

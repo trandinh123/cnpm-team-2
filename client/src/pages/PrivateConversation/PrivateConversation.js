@@ -140,6 +140,7 @@ export default function PrivateConversation({ socket }) {
             marginLeft: "10px",
             fontSize: "18px",
             fontWeight: "bold",
+            marginRight: "120px",
           }}
         >
           {friend.name}
@@ -178,6 +179,7 @@ export default function PrivateConversation({ socket }) {
             overflowY: "scroll",
             overflowX: "hidden",
             flex: "1 1 auto",
+            background: "whitesmoke",
           }}
         >
           {groupMessage(messages).map((listMessage, index) => (

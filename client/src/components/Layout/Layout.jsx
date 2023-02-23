@@ -58,7 +58,7 @@ export default function Layout({ navigationContent, children }) {
               roundedCircle
               fluid
               src={user?.picture}
-              style={{ cursor: "pointer", width: "48px", height: "48px" }}
+              style={{ cursor: "pointer", width: "40px", height: "40px" }}
             />
             <IconButton
               icon={<RiContactsBookLine />}
@@ -67,7 +67,12 @@ export default function Layout({ navigationContent, children }) {
                 return navigate("/contact");
               }}
             />
-            <IconButton icon={<RiChat3Line />} />
+            <IconButton
+              icon={<RiChat3Line />}
+              onClick={() => {
+                return navigate("/message");
+              }}
+            />
             <IconButton icon={<TfiCheckBox />} />
           </Container>
           <Container
@@ -95,12 +100,14 @@ export default function Layout({ navigationContent, children }) {
           <Row className="w-100 mx-0">
             <Col style={{ paddingRight: 0 }}>
               <InputGroup className="border-right-0">
-                <InputGroup.Text className="bg-transparent">
-                  <FaSearch style={{ color: "whitesmoke" }} />
+                <InputGroup.Text
+                  style={{ background: "#eaedf0", border: "none" }}
+                >
+                  <FaSearch style={{ color: "#081c36" }} />
                 </InputGroup.Text>
                 <Form.Control
                   placeholder="Tìm kiếm"
-                  style={{ borderLeft: "none" }}
+                  style={{ border: "none", background: "#eaedf0" }}
                 />
               </InputGroup>
             </Col>

@@ -321,6 +321,7 @@ export default function GroupConversation({ socket }) {
             overflowY: "scroll",
             overflowX: "hidden",
             flex: "1 1 auto",
+            background: "whitesmoke",
           }}
         >
           {groupMessage(messages).map((listMessage) => (
