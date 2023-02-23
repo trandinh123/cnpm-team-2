@@ -9,7 +9,7 @@ class groupPage {
     }
 
     openSendMessGroup() {
-        cy.get(groupLocatoc.groupBox).first().find(groupLocatoc.actionBtn).click()
+        cy.get(groupLocatoc.groupBox).first().find(groupLocatoc.actionBtn).eq(1).click()
         cy.wait(5000)
     }
     
@@ -32,6 +32,27 @@ class groupPage {
 
         cy.get(messagePO.message).last().should('have.text', messageValues.message3)
     }
+
+    createGroup() {
+        cy.get(groupLocatoc.createGroup).click();
+        cy.get(groupLocatoc.nameInput).type("CNPM GROUP")
+        for(let i=0; i<=2; i++) {
+            cy.get(groupLocatoc.formCheckbox).eq(i).click()
+        }
+        cy.get(groupLocatoc.createBtn).click()
+        
+    }
+
+    validateGroupInfo(groupName) {
+        cy.get(groupLocatoc.groupBox).get('div').eq(1).get('h4').eq(1).should('contains.text', `${groupName}(4 thành viên`)
+    }
+
+    editGroupInfo() {
+        cy.get(groupLocatoc.settingBtn).click()
+        cy.get(groupLocatoc.groupNameInput).clear().type("CNPM.1")
+        cy.get(groupLocatoc.saveBtn).click()
+    }
+
 }
 
 const groupPagePO = new groupPage();

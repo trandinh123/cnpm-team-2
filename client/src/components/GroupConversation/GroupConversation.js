@@ -299,6 +299,7 @@ export default function GroupConversation({ socket }) {
               users: conversation?.users?.map((u) => u._id),
             });
           }}
+          customClass='settingBtn'
         />
       </div>
       <Container

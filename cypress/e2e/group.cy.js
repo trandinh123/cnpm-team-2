@@ -6,6 +6,16 @@ describe("Group Testing", () => {
         cy.wait(1000)
     })
 
+    it("Create a group", () => {
+        // Create group
+        //groupPagePO.createGroup();
+
+        // Validate create successfull
+        groupPagePO.openGroupList();
+        groupPagePO.validateGroupInfo("CNPM GROUP");
+
+    })
+
     it("Sending to a group", () => {
         // Open group list
         groupPagePO.openGroupList();
@@ -18,5 +28,20 @@ describe("Group Testing", () => {
 
         //Validate sending message successfully
         groupPagePO.validateSendingMessSuccessfull()
+    })
+
+    it("Edit group information", () => {
+         // Open group list
+         groupPagePO.openGroupList();
+
+         // Open sending message screen
+         groupPagePO.openSendMessGroup();
+
+         //Edit group information
+         groupPagePO.editGroupInfo()
+
+         // Validate edit successfull
+         cy.go("back")
+         groupPagePO.validateGroupInfo("CNPM.1")
     })
 })
