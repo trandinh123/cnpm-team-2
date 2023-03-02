@@ -42,3 +42,6 @@ npm start
 - React
 - MUI
 - Boostrap
+
+## Testing
+- Cypress
