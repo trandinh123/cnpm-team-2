@@ -65,7 +65,7 @@ const FriendList = ({
   }
   return (
     <FriendBox>
-      <Img src={avatar} />
+      <Img src={avatar} referrerpolicy="no-referrer" />
       <NameFriend>{name}</NameFriend>
       <Button
         onClick={onAccept}

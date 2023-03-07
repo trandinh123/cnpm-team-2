@@ -142,7 +142,7 @@ function App() {
               element={
                 <ProtectedRoute
                   isAllowed={!!userAuth}
-                  component={<Contact />}
+                  component={<Contact loading={userLoading} />}
                 />
               }
             >

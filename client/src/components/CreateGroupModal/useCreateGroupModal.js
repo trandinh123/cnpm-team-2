@@ -8,7 +8,7 @@ import Form from "react-bootstrap/Form";
 import { SERVER_URL } from "../../config";
 
 export default function useCreateGroupModal() {
-  const { user } = useContext(UserContext);
+  const { user, refetchUser } = useContext(UserContext);
   const [groupName, setGroupName] = useState("");
   const [groupUser, setGroupUser] = useState([]);
 
@@ -142,6 +142,7 @@ export default function useCreateGroupModal() {
             groupAdmin: user._id,
           }),
         });
+        await refetchUser();
       },
     },
     secondaryAction: {

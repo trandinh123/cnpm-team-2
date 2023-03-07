@@ -33,7 +33,7 @@ const AccountGroup = ({ children }) => {
   return (
     <Wrapper>
       <Title>
-        <Img src={addFriend} style={{}} />
+        <Img src={addFriend} style={{}} referrerpolicy="no-referrer" />
         <Text>Danh sách nhóm</Text>
       </Title>
       <GroupList />
